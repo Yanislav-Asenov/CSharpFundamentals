@@ -5,23 +5,35 @@
 
     public static class DirectoryInfo
     {
-        public static void TraverseDirectory(string path)
+        public static void TraverseDirectory(int depth)
         {
             OutputWriter.WriteEmptyLine();
-            int initialIdentation = path.Split('\\').Length;
+            int initialIdentation = SessionData.currentPath.Split('\\').Length;
             Queue<string> subFolders = new Queue<string>();
-            subFolders.Enqueue(path);
+            subFolders.Enqueue(SessionData.currentPath);
 
             while (subFolders.Count > 0)
             {
                 string currentPath = subFolders.Dequeue();
                 int identation = currentPath.Split('\\').Length - initialIdentation;
 
+                if (depth - identation < 0)
+                {
+                    break;
+                }
+
                 OutputWriter.WriteMessageOnNewLine($"{new string('-', identation)}{currentPath}");
 
                 foreach (string directoryPath in Directory.GetDirectories(currentPath))
                 {
                     subFolders.Enqueue(directoryPath);
+                }
+
+                foreach (string file in Directory.GetFiles(currentPath))
+                {
+                    int indexOfLastSlash = file.LastIndexOf('\\');
+                    string fileName = file.Substring(indexOfLastSlash);
+                    OutputWriter.WriteMessageOnNewLine(new string('-', indexOfLastSlash) + fileName);
                 }
             }
         }
