@@ -8,7 +8,15 @@
         public static void CreateDirectoryInCurrentFolder(string name)
         {
             string path = $@"{GetCurrentDirectoryPath()}\{name}";
-            Directory.CreateDirectory(path);
+
+            try
+            {
+                Directory.CreateDirectory(path);
+            }
+            catch (ArgumentException)
+            {
+                OutputWriter.DisplayException(ExceptionMessages.ForbiddenSymbolsContainedInName);
+            }
         }
 
         private static object GetCurrentDirectoryPath()
@@ -20,17 +28,17 @@
         {
             if (relativePath == "..")
             {
-                string currentPath = SessionData.currentPath;
-                int indexOfLastSlash = currentPath.LastIndexOf('\\');
-
-                if (indexOfLastSlash == -1)
+                try
                 {
-                    OutputWriter.DisplayException(ExceptionMessages.InvalidPath);
-                    return;
+                    string currentPath = SessionData.currentPath;
+                    int indexOfLastSlash = currentPath.LastIndexOf('\\');
+                    string newPath = currentPath.Substring(0, indexOfLastSlash);
+                    SessionData.currentPath = newPath;
                 }
-
-                string newPath = currentPath.Substring(0, indexOfLastSlash);
-                SessionData.currentPath = newPath;
+                catch (ArgumentOutOfRangeException)
+                {
+                    OutputWriter.DisplayException(ExceptionMessages.UnableToGoHigherInPartitionHierarchy);
+                }
             }
             else
             {

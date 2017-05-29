@@ -1,5 +1,6 @@
 ﻿namespace BashSoft
 {
+    using System;
     using System.Collections.Generic;
     using System.IO;
 
@@ -24,16 +25,23 @@
 
                 OutputWriter.WriteMessageOnNewLine($"{new string('-', identation)}{currentPath}");
 
-                foreach (string directoryPath in Directory.GetDirectories(currentPath))
+                try
                 {
-                    subFolders.Enqueue(directoryPath);
-                }
+                    foreach (string file in Directory.GetFiles(currentPath))
+                    {
+                        int indexOfLastSlash = file.LastIndexOf('\\');
+                        string fileName = file.Substring(indexOfLastSlash);
+                        OutputWriter.WriteMessageOnNewLine(new string('-', indexOfLastSlash) + fileName);
+                    }
 
-                foreach (string file in Directory.GetFiles(currentPath))
+                    foreach (string directoryPath in Directory.GetDirectories(currentPath))
+                    {
+                        subFolders.Enqueue(directoryPath);
+                    }
+                }
+                catch (UnauthorizedAccessException)
                 {
-                    int indexOfLastSlash = file.LastIndexOf('\\');
-                    string fileName = file.Substring(indexOfLastSlash);
-                    OutputWriter.WriteMessageOnNewLine(new string('-', indexOfLastSlash) + fileName);
+                    OutputWriter.DisplayException(ExceptionMessages.UnauthorizedAccessExceptionMessage);
                 }
             }
         }
