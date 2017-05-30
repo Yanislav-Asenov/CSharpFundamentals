@@ -1,4 +1,4 @@
-﻿namespace SquareWithMaximumSum
+﻿namespace MaximalSum
 {
     using System;
     using System.Linq;
@@ -8,9 +8,9 @@
         public static void Main()
         {
             int[] inputArgs = Console.ReadLine()
-                .Split(new[] { ' ', ',' }, StringSplitOptions.RemoveEmptyEntries)
-                .Select(int.Parse)
-                .ToArray();
+                            .Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
+                            .Select(int.Parse)
+                            .ToArray();
 
             int rows = inputArgs[0];
             int cols = inputArgs[1];
@@ -21,9 +21,9 @@
             int maxSum = int.MinValue;
             int maxSumCubeRow = -1;
             int maxSumCuteCol = -1;
-            for (int row = 0; row < rows - 1; row++)
+            for (int row = 0; row < rows - 2; row++)
             {
-                for (int col = 0; col < cols - 1; col++)
+                for (int col = 0; col < cols - 2; col++)
                 {
                     int currentSum = GetCubeSum(row, col, matrix);
                     if (currentSum > maxSum)
@@ -40,32 +40,42 @@
 
         private static void PrintMaxSumCube(int[][] matrix, int maxSum, int maxSumCubeRow, int maxSumCuteCol)
         {
-            Console.WriteLine($"{matrix[maxSumCubeRow][maxSumCuteCol]} {matrix[maxSumCubeRow][maxSumCuteCol + 1]}");
-            Console.WriteLine($"{matrix[maxSumCubeRow + 1][maxSumCuteCol]} {matrix[maxSumCubeRow + 1][maxSumCuteCol + 1]}");
-            Console.WriteLine(maxSum);
+            Console.WriteLine($"Sum = {maxSum}");
+            for (int row = maxSumCubeRow; row <= maxSumCubeRow + 2; row++)
+            {
+                for (int col = maxSumCuteCol; col <= maxSumCuteCol + 2; col++)
+                {
+                    Console.Write(matrix[row][col] + " ");
+                }
+
+                Console.WriteLine();
+            }
         }
 
         private static int GetCubeSum(int row, int col, int[][] matrix)
         {
-            int topLeftCell = matrix[row][col];
-            int topRightCell = matrix[row][col + 1];
-            int bottomLeftCell = matrix[row + 1][col];
-            int bottomRightCell = matrix[row + 1][col + 1];
+            int sum = 0;
+            for (int rowIndex = row; rowIndex <= row + 2; rowIndex++)
+            {
+                for (int colIndex = col; colIndex <= col + 2; colIndex++)
+                {
+                    sum += matrix[rowIndex][colIndex];
+                }
+            }
 
-            return topLeftCell + topRightCell + bottomLeftCell + bottomRightCell;
+            return sum;
         }
 
         private static void FillMatrix(int rows, int cols, int[][] matrix)
         {
             for (int row = 0; row < rows; row++)
             {
-                int[] currentRow = Console.ReadLine()
-                    .Split(new[] { ' ', ',' }, StringSplitOptions.RemoveEmptyEntries)
+                matrix[row] = Console.ReadLine()
+                    .Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
                     .Select(int.Parse)
                     .ToArray();
-
-                matrix[row] = currentRow;
             }
+
         }
     }
 }
