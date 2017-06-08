@@ -1,8 +1,9 @@
-﻿namespace CopyBinaryFile
+﻿namespace ZippingSlicedFiles
 {
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.IO.Compression;
     using System.Linq;
 
     public class Startup
@@ -42,16 +43,14 @@
                     Assemble(files, destinationDirectory);
                     break;
                 case 2: // Slice
-                    Console.WriteLine("Enter the location of your file (including the file's name and extension):");
-                    var file = Console.ReadLine();
+                    var sourceFile = Console.ReadLine();
 
-                    while (!File.Exists(file))
+                    while (!File.Exists(sourceFile))
                     {
                         Console.WriteLine($@"The path you entered does not exists. Please enter the full path of your file.{Environment.NewLine}e.g: ""D:\Folder Name\Second Folder\File Name.txt""");
-                        file = Console.ReadLine();
+                        sourceFile = Console.ReadLine();
                     }
-
-                    var dir = file.Substring(0, file.LastIndexOf('\\'));
+                    var dir = sourceFile.Substring(0, sourceFile.LastIndexOf('\\'));
                     destinationDirectory = Path.Combine(dir, $"Sliced - {DateTime.Now:dd-MM-yyyy - hh-mm}");
                     Directory.CreateDirectory(destinationDirectory);
 
@@ -71,7 +70,7 @@
                         }
                     }
 
-                    Slice(file, destinationDirectory, parts);
+                    Slice(sourceFile, destinationDirectory, parts);
                     break;
                 default:
                     Console.WriteLine("Wrong input. Please try again.");
@@ -90,22 +89,25 @@
 
                 for (int i = 1; i <= parts; i++)
                 {
-                    var outputFile = Path.Combine(destinationDirectory, $"Part {i}{extension}");
+                    var outputFile = Path.Combine(destinationDirectory, $"Part {i}{extension}.gz");
 
                     using (var writer = new FileStream(outputFile, FileMode.Create))
                     {
-                        var buffer = new byte[4096];
-
-                        while (writer.Length < partSize)
+                        using (var compressionStream = new GZipStream(writer, CompressionMode.Compress, false))
                         {
-                            var readBytes = reader.Read(buffer, 0, buffer.Length);
+                            var buffer = new byte[4096];
 
-                            if (readBytes == 0)
+                            while (writer.Length < partSize)
                             {
-                                break;
-                            }
+                                var readBytes = reader.Read(buffer, 0, buffer.Length);
 
-                            writer.Write(buffer, 0, readBytes);
+                                if (readBytes == 0)
+                                {
+                                    break;
+                                }
+
+                                compressionStream.Write(buffer, 0, readBytes);
+                            }
                         }
                     }
                 }
@@ -114,7 +116,8 @@
 
         private static void Assemble(List<string> files, string destinationDirectory)
         {
-            var extension = Path.GetExtension(files[0]);
+            var lastIndexOfDot = files[0].LastIndexOf('.');
+            var extension = Path.GetExtension(files[0].Substring(0, lastIndexOfDot));
             var outputFile = Path.Combine(destinationDirectory, $"Assembled {DateTime.Now:dd-MM-yyyy - hh-mm}{extension}");
 
             try
@@ -123,17 +126,26 @@
                 {
                     foreach (var file in files)
                     {
+                        if (Path.GetExtension(file) != ".gz")
+                        {
+                            Console.WriteLine("The following file is nog GZip and the operation cannot be completed.");
+                            return;
+                        }
+
                         try
                         {
                             using (var reader = new FileStream(file, FileMode.Open))
                             {
-                                var buffer = new byte[4096];
-                                var readBytesCount = reader.Read(buffer, 0, buffer.Length);
-
-                                while (readBytesCount != 0)
+                                using (var decompressionStram = new GZipStream(reader, CompressionMode.Decompress, false))
                                 {
-                                    writer.Write(buffer, 0, readBytesCount);
-                                    readBytesCount = reader.Read(buffer, 0, buffer.Length);
+                                    var buffer = new byte[4096];
+                                    var readBytesCount = decompressionStram.Read(buffer, 0, buffer.Length);
+
+                                    while (readBytesCount != 0)
+                                    {
+                                        writer.Write(buffer, 0, readBytesCount);
+                                        readBytesCount = decompressionStram.Read(buffer, 0, buffer.Length);
+                                    }
                                 }
                             }
                         }
@@ -181,6 +193,7 @@
 
         private static List<string> GetFilesFromDirectory()
         {
+            Console.Write("Enter Directory path: ");
             var dir = Console.ReadLine();
 
             while (!Directory.Exists(dir))
