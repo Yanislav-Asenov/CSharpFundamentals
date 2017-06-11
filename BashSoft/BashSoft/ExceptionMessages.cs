@@ -10,6 +10,7 @@
         public const string UnauthorizedAccessExceptionMessage = "The folder/file you are trying to get access needs a higher level of rights than you currently have.";
         public const string ComparisonOfFilesWithDifferentSizes = "Comparison of files with different sizes.";
         public const string ForbiddenSymbolsContainedInName = "The given name contains symbols that are not allowed to be used in names of files and folders.";
-        internal static string UnableToGoHigherInPartitionHierarchy = "Unable to go hiher in partition hierarchy";
+        public const string UnableToGoHigherInPartitionHierarchy = "Unable to go hiher in partition hierarchy";
+        public const string UnableToParseNumber = "The sequence you've written is not a valid number.";
     }
 }
