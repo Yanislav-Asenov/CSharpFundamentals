@@ -4,13 +4,12 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D5B26427-1A9F-4462-BDD2-A29649C652A4}</ProjectGuid>
+    <ProjectGuid>{8FBE5928-E635-458A-8660-81E158749275}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>BashSoft</RootNamespace>
-    <AssemblyName>BashSoft</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <RootNamespace>FindEvenOrOdds</RootNamespace>
+    <AssemblyName>FindEvenOrOdds</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -42,18 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IO\CommandInterpreter.cs" />
-    <Compile Include="StaticData\ExceptionMessages.cs" />
-    <Compile Include="IO\InputReader.cs" />
-    <Compile Include="IO\IOManager.cs" />
-    <Compile Include="Launcher.cs" />
-    <Compile Include="IO\OutputWriter.cs" />
+    <Compile Include="Startup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repository\RepositoryFilters.cs" />
-    <Compile Include="Repository\RepositorySorters.cs" />
-    <Compile Include="StaticData\SessionData.cs" />
-    <Compile Include="Repository\StudentsRepository.cs" />
-    <Compile Include="Judge\Tester.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
