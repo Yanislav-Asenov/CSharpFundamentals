@@ -27,8 +27,7 @@
         {
             if (this.isDataInitialized)
             {
-                OutputWriter.DisplayException(ExceptionMessages.DataAlreadyInitilizedException);
-                return;
+                throw new ArgumentException(ExceptionMessages.DataAlreadyInitilizedException);
             }
 
             this.coursesByName = new Dictionary<string, Course>();
@@ -40,7 +39,7 @@
         {
             if (!this.isDataInitialized)
             {
-                OutputWriter.DisplayException(ExceptionMessages.DataNotInitializedExceptionMessage);
+                throw new ArgumentException(ExceptionMessages.DataNotInitializedExceptionMessage);
             }
 
             this.coursesByName = null;
@@ -145,7 +144,7 @@
 
         private bool IsQueryForStudentPossible(string courseName, string studentName)
         {
-            if (this.IsQueryForCoursePossible(courseName) && this.coursesByName[courseName].studentsByName.ContainsKey(studentName))
+            if (this.IsQueryForCoursePossible(courseName) && this.coursesByName[courseName].StudentsByName.ContainsKey(studentName))
             {
                 return true;
             }
@@ -161,7 +160,7 @@
         {
             if (this.IsQueryForStudentPossible(courseName, username))
             {
-                OutputWriter.PrintStudent(new KeyValuePair<string, double>(username, this.coursesByName[courseName].studentsByName[username].marksByCourseName[courseName]));
+                OutputWriter.PrintStudent(new KeyValuePair<string, double>(username, this.coursesByName[courseName].StudentsByName[username].MarksByCourseName[courseName]));
             }
         }
 
@@ -170,9 +169,9 @@
             if (IsQueryForCoursePossible(courseName))
             {
                 OutputWriter.WriteMessageOnNewLine($"{courseName}:");
-                foreach (var studentMarksEntry in this.coursesByName[courseName].studentsByName)
+                foreach (var studentMarksEntry in this.coursesByName[courseName].StudentsByName)
                 {
-                    OutputWriter.PrintStudent(new KeyValuePair<string, double>(studentMarksEntry.Key, studentMarksEntry.Value.marksByCourseName[courseName]));
+                    OutputWriter.PrintStudent(new KeyValuePair<string, double>(studentMarksEntry.Key, studentMarksEntry.Value.MarksByCourseName[courseName]));
                 }
             }
         }
@@ -183,12 +182,12 @@
             {
                 if (studentsToTake == null)
                 {
-                    studentsToTake = this.coursesByName[courseName].studentsByName.Count;
+                    studentsToTake = this.coursesByName[courseName].StudentsByName.Count;
                 }
 
                 Dictionary<string, double> marks = this.coursesByName[courseName]
-                    .studentsByName
-                    .ToDictionary(x => x.Key, x => x.Value.marksByCourseName[courseName]);
+                    .StudentsByName
+                    .ToDictionary(x => x.Key, x => x.Value.MarksByCourseName[courseName]);
 
                 this.filter.FilterAndTake(marks, givenFilter, studentsToTake.Value);
             }
@@ -200,12 +199,12 @@
             {
                 if (studentsToTake == null)
                 {
-                    studentsToTake = this.coursesByName[courseName].studentsByName.Count;
+                    studentsToTake = this.coursesByName[courseName].StudentsByName.Count;
                 }
 
                 Dictionary<string, double> marks = this.coursesByName[courseName]
-                    .studentsByName
-                    .ToDictionary(x => x.Key, x => x.Value.marksByCourseName[courseName]);
+                    .StudentsByName
+                    .ToDictionary(x => x.Key, x => x.Value.MarksByCourseName[courseName]);
 
                 this.sorter.OrderAndTake(marks, comparison, studentsToTake.Value);
             }

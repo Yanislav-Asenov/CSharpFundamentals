@@ -24,9 +24,9 @@
                 PrintOutput(mismatches, hasMismatch, mismatchPath);
                 OutputWriter.WriteMessageOnNewLine("Files read!");
             }
-            catch (FileNotFoundException)
+            catch (IOException)
             {
-                OutputWriter.DisplayException(ExceptionMessages.InvalidPath);
+                throw new IOException(ExceptionMessages.InvalidPath);
             }
         }
 
@@ -42,14 +42,9 @@
                 OutputWriter.WriteMessageOnNewLine(line);
             }
 
-            try
-            {
-                File.WriteAllLines(mismatchesPath, mismatches);
-            }
-            catch (DirectoryNotFoundException)
-            {
-                OutputWriter.DisplayException(ExceptionMessages.InvalidPath);
-            }
+            
+            File.WriteAllLines(mismatchesPath, mismatches);
+          
 
             OutputWriter.WriteMessageOnNewLine("Files are identical. There are no mismatches.");
         }

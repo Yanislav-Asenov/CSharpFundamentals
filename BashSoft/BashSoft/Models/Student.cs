@@ -1,5 +1,6 @@
 ﻿namespace BashSoft.Models
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using BashSoft.IO;
@@ -9,7 +10,7 @@
     {
         private string userName;
         private Dictionary<string, Course> enrolledCourses;
-        public Dictionary<string, double> marksByCourseName;
+        private Dictionary<string, double> marksByCourseName;
 
         public Student(string userName)
         {
@@ -26,7 +27,21 @@
             }
             private set
             {
+                if (string.IsNullOrEmpty(value))
+                {
+                    throw new ArgumentNullException(nameof(this.userName),
+                        ExceptionMessages.NullOrEmptyValue);
+                }
+
                 this.userName = value;
+            }
+        }
+
+        public IReadOnlyDictionary<string, double> MarksByCourseName
+        {
+            get
+            {
+                return this.marksByCourseName;
             }
         }
 
@@ -34,10 +49,9 @@
         {
             if (this.enrolledCourses.ContainsKey(course.Name))
             {
-                OutputWriter.DisplayException(string.Format(ExceptionMessages.StudentAlreadyEnrolledInGivenCourse,
+                throw new InvalidOperationException(string.Format(ExceptionMessages.StudentAlreadyEnrolledInGivenCourse,
                     this.UserName,
                     course.Name));
-                return;
             }
 
             this.enrolledCourses.Add(course.Name, course);
@@ -47,14 +61,12 @@
         {
             if (!this.enrolledCourses.ContainsKey(courseName))
             {
-                OutputWriter.DisplayException(ExceptionMessages.StudentNotEnrolledInCourse);
-                return;
+                throw new InvalidOperationException(ExceptionMessages.StudentNotEnrolledInCourse);
             }
 
             if (scores.Length >  Course.NumberOfTasksOnExam)
             {
-                OutputWriter.DisplayException(ExceptionMessages.InvalidNumberOfScores);
-                return;
+                throw new InvalidOperationException(ExceptionMessages.InvalidNumberOfScores);
             }
 
             this.marksByCourseName.Add(courseName, CalculateMark(scores));

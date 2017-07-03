@@ -1,6 +1,8 @@
 ﻿namespace BashSoft.IO
 {
+    using System;
     using System.Diagnostics;
+    using System.IO;
     using BashSoft.Judge;
     using BashSoft.Repository;
     using BashSoft.StaticData;
@@ -22,46 +24,71 @@
         {
             string[] data = input.Split(' ');
             string command = data[0];
+
+            try
+            {
+                this.ParseCommand(input, command, data);
+            }
+            catch (IOException ioe)
+            {
+                OutputWriter.DisplayException(ioe.Message);
+            }
+            catch (ArgumentOutOfRangeException aoore)
+            {
+                OutputWriter.DisplayException(aoore.Message);
+            }
+            catch (ArgumentException ae)
+            {
+                OutputWriter.DisplayException(ae.Message);
+            }
+            catch (Exception e)
+            {
+                OutputWriter.DisplayException(e.Message);
+            }
+        }
+
+        private void ParseCommand(string input, string command, string[] data)
+        {
             switch (command)
             {
                 case "open":
-                    TryOpenFile(input, data);
+                    this.TryOpenFile(input, data);
                     break;
                 case "mkdir":
-                    TryCreateDirectory(input, data);
+                    this.TryCreateDirectory(input, data);
                     break;
                 case "ls":
-                    TryTraverseFolders(input, data);
+                    this.TryTraverseFolders(input, data);
                     break;
                 case "cmp":
-                    TryCompareFiles(input, data);
+                    this.TryCompareFiles(input, data);
                     break;
                 case "cdRel":
-                    TryChangePathRelatively(input, data);
+                    this.TryChangePathRelatively(input, data);
                     break;
                 case "cdAbs":
-                    TryChangePathAbsolute(input, data);
+                    this.TryChangePathAbsolute(input, data);
                     break;
                 case "readDb":
-                    TryReadDatabaseFromFile(input, data);
+                    this.TryReadDatabaseFromFile(input, data);
                     break;
                 case "help":
-                    TryGetHelp(input, data);
+                    this.TryGetHelp(input, data);
                     break;
                 case "filter":
-                    TryFilterAndTake(input, data);
+                    this.TryFilterAndTake(input, data);
                     break;
                 case "order":
-                    TryOrderAndTake(input, data);
+                    this.TryOrderAndTake(input, data);
                     break;
                 case "dropdb":
-                    TryDropDb(input, data);
+                    this.TryDropDb(input, data);
                     break;
                 case "show":
-                    TryShowWantedData(input, data);
+                    this.TryShowWantedData(input, data);
                     break;
                 default:
-                    DisplayInvalidCommandMessage(input);
+                    this.DisplayInvalidCommandMessage(input);
                     break;
             }
         }
@@ -87,11 +114,11 @@
                 string orderCommand = data[3].ToLower();
                 string takeQuantity = data[4].ToLower();
 
-                TryParseParametersForOrderAndTake(orderCommand, takeQuantity, courseName, order);
+                this.TryParseParametersForOrderAndTake(orderCommand, takeQuantity, courseName, order);
             }
             else
             {
-                DisplayInvalidCommandMessage(input);
+                this.DisplayInvalidCommandMessage(input);
             }
         }
 
@@ -130,11 +157,11 @@
                 string takeCommand = data[3].ToLower();
                 string takeQuantity = data[4].ToLower();
 
-                TryParseParametersForFilterAndTake(takeCommand, takeQuantity, courseName, filter);
+                this.TryParseParametersForFilterAndTake(takeCommand, takeQuantity, courseName, filter);
             }
             else
             {
-                DisplayInvalidCommandMessage(input);
+                this.DisplayInvalidCommandMessage(input);
             }
         }
 
@@ -179,7 +206,7 @@
             }
             else
             {
-                DisplayInvalidCommandMessage(input);
+                this.DisplayInvalidCommandMessage(input);
             }
         }
 
@@ -215,7 +242,7 @@
             }
             else
             {
-                DisplayInvalidCommandMessage(input);
+                this.DisplayInvalidCommandMessage(input);
             }
         }
 
@@ -228,7 +255,7 @@
             }
             else
             {
-                DisplayInvalidCommandMessage(input);
+                this.DisplayInvalidCommandMessage(input);
             }
         }
 
@@ -241,7 +268,7 @@
             }
             else
             {
-                DisplayInvalidCommandMessage(input);
+                this.DisplayInvalidCommandMessage(input);
             }
         }
 
@@ -256,7 +283,7 @@
             }
             else
             {
-                DisplayInvalidCommandMessage(input);
+                this.DisplayInvalidCommandMessage(input);
             }
         }
 
@@ -279,7 +306,7 @@
             }
             else
             {
-                DisplayInvalidCommandMessage(input);
+                this.DisplayInvalidCommandMessage(input);
             }
         }
 
@@ -292,7 +319,7 @@
             }
             else
             {
-                DisplayInvalidCommandMessage(input);
+                this.DisplayInvalidCommandMessage(input);
             }
         }
 
@@ -305,7 +332,7 @@
             }
             else
             {
-                DisplayInvalidCommandMessage(input);
+                this.DisplayInvalidCommandMessage(input);
             }
         }
     }
