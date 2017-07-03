@@ -6,20 +6,20 @@
     using BashSoft.IO;
     using BashSoft.StaticData;
 
-    public static class RepositorySorters
+    public class RepositorySorter
     {
-        public static void OrderAndTake(Dictionary<string, List<int>> wantedData, string comparison, int studentsToTake)
+        public void OrderAndTake(Dictionary<string, double> studentsWithMarks, string comparison, int studentsToTake)
         {
             comparison = comparison.ToLower();
             if (comparison == "ascending")
             {
-                PrintStudents(wantedData.OrderBy(x => x.Value.Sum())
+                PrintStudents(studentsWithMarks.OrderBy(x => x.Value)
                     .Take(studentsToTake)
                     .ToDictionary(pair => pair.Key, pair => pair.Value));
             }
             else if (comparison == "descending")
             {
-                PrintStudents(wantedData.OrderByDescending(x => x.Value.Sum())
+                PrintStudents(studentsWithMarks.OrderByDescending(x => x.Value)
                     .Take(studentsToTake)
                     .ToDictionary(pair => pair.Key, pair => pair.Value));
             }
@@ -29,11 +29,11 @@
             }
         }
 
-        private static void PrintStudents(Dictionary<string, List<int>> studentsSorted)
+        private void PrintStudents(Dictionary<string, double> studentsSorted)
         {
-            foreach (KeyValuePair<string, List<int>> studentWithMarks in studentsSorted)
+            foreach (KeyValuePair<string, double> studentWithMark in studentsSorted)
             {
-                OutputWriter.PrintStudent(studentWithMarks);
+                OutputWriter.PrintStudent(studentWithMark);
             }
         }
     }

@@ -3,18 +3,24 @@
     using System;
     using BashSoft.StaticData;
 
-    public static class InputReader
+    public class InputReader
     {
         private const string endCommand = "quit";
+        private CommandInterpreter commandInterpreter;
 
-        public static void StartReadingCommands()
+        public InputReader(CommandInterpreter commandInterpreter)
+        {
+            this.commandInterpreter = commandInterpreter;
+        }
+
+        public void StartReadingCommands()
         {
             OutputWriter.WriteMessage($"{SessionData.currentPath}> ");
             string input = Console.ReadLine().Trim();
 
             while (input != endCommand)
             {
-                CommandInterpreter.InterpredCommand(input);
+                this.commandInterpreter.InterpredCommand(input);
                 OutputWriter.WriteMessage($"{SessionData.currentPath}> ");
                 input = Console.ReadLine().Trim();
             }
