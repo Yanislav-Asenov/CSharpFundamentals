@@ -29,18 +29,6 @@
             {
                 this.ParseCommand(input, command, data);
             }
-            catch (IOException ioe)
-            {
-                OutputWriter.DisplayException(ioe.Message);
-            }
-            catch (ArgumentOutOfRangeException aoore)
-            {
-                OutputWriter.DisplayException(aoore.Message);
-            }
-            catch (ArgumentException ae)
-            {
-                OutputWriter.DisplayException(ae.Message);
-            }
             catch (Exception e)
             {
                 OutputWriter.DisplayException(e.Message);

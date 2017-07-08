@@ -5,6 +5,7 @@
     using System.IO;
     using System.Linq;
     using System.Text.RegularExpressions;
+    using BashSoft.Exceptions;
     using BashSoft.IO;
     using BashSoft.Models;
     using BashSoft.StaticData;
@@ -117,7 +118,7 @@
             }
             else
             {
-                OutputWriter.DisplayException(ExceptionMessages.InvalidPath);
+                throw new InvalidPathException();
             }
         }
 
@@ -131,7 +132,7 @@
                 }
                 else
                 {
-                    OutputWriter.DisplayException(ExceptionMessages.InexistingCourseInDataBase);
+                    throw new CourseNotFoundException();
                 }
             }
             else

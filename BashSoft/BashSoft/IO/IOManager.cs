@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using BashSoft.Exceptions;
     using BashSoft.StaticData;
 
     public class IOManager
@@ -55,9 +56,9 @@
             {
                 Directory.CreateDirectory(path);
             }
-            catch (ArgumentException)
+            catch (InvalidFileNameException)
             {
-                OutputWriter.DisplayException(ExceptionMessages.ForbiddenSymbolsContainedInName);
+                throw new InvalidFileNameException();
             }
         }
 
@@ -94,7 +95,7 @@
         {
             if (!Directory.Exists(absolutePath))
             {
-                throw new DirectoryNotFoundException(ExceptionMessages.InvalidPath);
+                throw new InvalidPathException();
             }
 
             SessionData.currentPath = absolutePath;

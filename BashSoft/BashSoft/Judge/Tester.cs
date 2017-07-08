@@ -2,6 +2,7 @@
 {
     using System;
     using System.IO;
+    using BashSoft.Exceptions;
     using BashSoft.IO;
     using BashSoft.StaticData;
 
@@ -24,9 +25,9 @@
                 PrintOutput(mismatches, hasMismatch, mismatchPath);
                 OutputWriter.WriteMessageOnNewLine("Files read!");
             }
-            catch (IOException)
+            catch (InvalidPathException)
             {
-                throw new IOException(ExceptionMessages.InvalidPath);
+                throw new InvalidPathException();
             }
         }
 
