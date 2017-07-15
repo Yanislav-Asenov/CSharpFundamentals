@@ -61,7 +61,8 @@ public class NationsBuilder
         }
 
         // Destroy all defeated nations (destory all monuments and benders)
-        foreach (var nationPair in this.nations.OrderByDescending(n => n.Value.TotalPower).Skip(1))
+        var defeatedNations = this.nations.OrderByDescending(n => n.Value.TotalPower).Skip(1);
+        foreach (var nationPair in defeatedNations)
         {
             nationPair.Value.Destroy();
         }
