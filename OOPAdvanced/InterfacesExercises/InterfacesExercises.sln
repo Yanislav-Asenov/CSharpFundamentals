@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.16
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DefineIPersonInterface", "DefineIPersonInterface\DefineIPersonInterface.csproj", "{1B49875D-8066-4EC1-95EA-59E062B74283}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FerrariProblem", "FerrariProblem\FerrariProblem.csproj", "{A7B21A3B-A4F7-4748-882D-7E694C31299A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Telephony", "Telephony\Telephony.csproj", "{F04E309B-1986-4333-AE28-324242949157}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BorderControl", "BorderControl\BorderControl.csproj", "{47EB214E-228B-40F1-9225-3A1CED74D6A8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1B49875D-8066-4EC1-95EA-59E062B74283}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B49875D-8066-4EC1-95EA-59E062B74283}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B49875D-8066-4EC1-95EA-59E062B74283}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B49875D-8066-4EC1-95EA-59E062B74283}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7B21A3B-A4F7-4748-882D-7E694C31299A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7B21A3B-A4F7-4748-882D-7E694C31299A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7B21A3B-A4F7-4748-882D-7E694C31299A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7B21A3B-A4F7-4748-882D-7E694C31299A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F04E309B-1986-4333-AE28-324242949157}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F04E309B-1986-4333-AE28-324242949157}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F04E309B-1986-4333-AE28-324242949157}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F04E309B-1986-4333-AE28-324242949157}.Release|Any CPU.Build.0 = Release|Any CPU
+		{47EB214E-228B-40F1-9225-3A1CED74D6A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47EB214E-228B-40F1-9225-3A1CED74D6A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47EB214E-228B-40F1-9225-3A1CED74D6A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47EB214E-228B-40F1-9225-3A1CED74D6A8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
