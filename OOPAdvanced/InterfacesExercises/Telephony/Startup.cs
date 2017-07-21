@@ -7,10 +7,10 @@ public class Startup
     {
         ISmartphone smartphone = new Smartphone();
 
-        string[] phoneNumbersToCall = Console.ReadLine().Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+        string[] phoneNumbersToCall = Console.ReadLine().Split();
         CallPhoneNumbers(smartphone, phoneNumbersToCall);
 
-        string[] webSitesToVisit = Console.ReadLine().Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+        string[] webSitesToVisit = Console.ReadLine().Split();
         BrowseWebSites(smartphone, webSitesToVisit);
     }
 
