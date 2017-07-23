@@ -1,5 +1,6 @@
 ﻿namespace BashSoft
 {
+    using BashSoft.Contracts;
     using BashSoft.IO;
     using BashSoft.Judge;
     using BashSoft.Repository;
@@ -8,12 +9,12 @@
     {
         public static void Main()
         {
-            Tester tester = new Tester();
-            IOManager inputOutputManager = new IOManager();
-            StudentsRepository repository = new StudentsRepository(new RepositoryFilter(), new RepositorySorter());
+            IContentComparer tester = new Tester();
+            IDirectoryMananger inputOutputManager = new IOManager();
+            IDatabase repository = new StudentsRepository(new RepositoryFilter(), new RepositorySorter());
 
-            CommandInterpreter commandInterpreter = new CommandInterpreter(tester, repository, inputOutputManager);
-            InputReader reader = new InputReader(commandInterpreter);
+            IInterpreter commandInterpreter = new CommandInterpreter(tester, repository, inputOutputManager);
+            IReader reader = new InputReader(commandInterpreter);
 
             reader.StartReadingCommands();
         }

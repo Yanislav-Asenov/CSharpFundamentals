@@ -5,8 +5,9 @@
     using BashSoft.Exceptions;
     using BashSoft.IO;
     using BashSoft.StaticData;
+    using BashSoft.Contracts;
 
-    public class Tester
+    public class Tester : IContentComparer
     {
         public void CompareContent(string userOutputPath, string expectedOutputPath)
         {

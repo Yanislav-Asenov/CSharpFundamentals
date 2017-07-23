@@ -1,8 +1,7 @@
 ﻿namespace BashSoft.IO.Commands
 {
+    using BashSoft.Contracts;
     using BashSoft.Exceptions;
-    using BashSoft.Judge;
-    using BashSoft.Repository;
     using BashSoft.StaticData;
 
     public class FilterAndTakeCommand : Command
@@ -10,9 +9,9 @@
         public FilterAndTakeCommand(
             string input, 
             string[] data,
-            Tester judge, 
-            StudentsRepository studentsRepository, 
-            IOManager inputOutputManager) 
+            IContentComparer judge,
+            IDatabase studentsRepository,
+            IDirectoryMananger inputOutputManager) 
             : base(input, data, judge, studentsRepository, inputOutputManager)
         {
         }

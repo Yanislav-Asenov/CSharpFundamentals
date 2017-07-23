@@ -2,13 +2,14 @@
 {
     using System;
     using BashSoft.StaticData;
+    using BashSoft.Contracts;
 
-    public class InputReader
+    public class InputReader : IReader
     {
         private const string endCommand = "quit";
-        private CommandInterpreter commandInterpreter;
+        private IInterpreter commandInterpreter;
 
-        public InputReader(CommandInterpreter commandInterpreter)
+        public InputReader(IInterpreter commandInterpreter)
         {
             this.commandInterpreter = commandInterpreter;
         }
@@ -20,7 +21,7 @@
 
             while (input != endCommand)
             {
-                this.commandInterpreter.InterpredCommand(input);
+                this.commandInterpreter.InterpretCommand(input);
                 OutputWriter.WriteMessage($"{SessionData.currentPath}> ");
                 input = Console.ReadLine().Trim();
             }

@@ -3,30 +3,29 @@
     using System;
     using BashSoft.Exceptions;
     using BashSoft.IO.Commands;
-    using BashSoft.Judge;
-    using BashSoft.Repository;
+    using BashSoft.Contracts;
 
-    public class CommandInterpreter
+    public class CommandInterpreter : IInterpreter
     {
-        private Tester judge;
-        private StudentsRepository studentsRepository;
-        private IOManager inputOutputManager;
+        private IContentComparer judge;
+        private IDatabase studentsRepository;
+        private IDirectoryMananger inputOutputManager;
 
-        public CommandInterpreter(Tester judge, StudentsRepository repository, IOManager inputOutputManager)
+        public CommandInterpreter(IContentComparer judge, IDatabase repository, IDirectoryMananger inputOutputManager)
         {
             this.judge = judge;
             this.studentsRepository = repository;
             this.inputOutputManager = inputOutputManager;
         }
 
-        public void InterpredCommand(string input)
+        public void InterpretCommand(string input)
         {
             string[] data = input.Split(' ');
             string commandName = data[0];
 
             try
             {
-                Command command = this.ParseCommand(input, commandName, data);
+                IExecutable command = this.ParseCommand(input, commandName, data);
                 command.Execute();
             }
             catch (Exception e)
@@ -35,7 +34,7 @@
             }
         }
 
-        private Command ParseCommand(string input, string command, string[] data)
+        private IExecutable ParseCommand(string input, string command, string[] data)
         {
             switch (command)
             {

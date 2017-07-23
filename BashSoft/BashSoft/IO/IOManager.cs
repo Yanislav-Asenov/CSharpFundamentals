@@ -5,8 +5,9 @@
     using System.IO;
     using BashSoft.Exceptions;
     using BashSoft.StaticData;
+    using BashSoft.Contracts;
 
-    public class IOManager
+    public class IOManager : IDirectoryMananger
     {
         public void TraverseDirectory(int depth)
         {

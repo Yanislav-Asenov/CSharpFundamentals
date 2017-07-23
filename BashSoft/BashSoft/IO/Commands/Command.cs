@@ -2,23 +2,22 @@
 {
     using System;
     using BashSoft.Exceptions;
-    using BashSoft.Judge;
-    using BashSoft.Repository;
+    using BashSoft.Contracts;
 
-    public abstract class Command
+    public abstract class Command : IExecutable
     {
         private string input;
         private string[] data;
-        private Tester judge;
-        private StudentsRepository studentsRepository;
-        private IOManager inputOutputManager;
+        private IContentComparer judge;
+        private IDatabase studentsRepository;
+        private IDirectoryMananger inputOutputManager;
 
         public Command(
             string input, 
-            string[] data, 
-            Tester judge, 
-            StudentsRepository studentsRepository,
-            IOManager inputOutputManager)
+            string[] data,
+            IContentComparer judge,
+            IDatabase studentsRepository,
+            IDirectoryMananger inputOutputManager)
         {
             this.Input = input;
             this.Data = data;
@@ -55,9 +54,9 @@
             }
         }
 
-        protected Tester Judge => this.judge;
-        protected StudentsRepository StudentsRepository => this.studentsRepository;
-        protected IOManager InputOutputManager => this.inputOutputManager;
+        protected IContentComparer Judge => this.judge;
+        protected IDatabase StudentsRepository => this.studentsRepository;
+        protected IDirectoryMananger InputOutputManager => this.inputOutputManager;
 
         public abstract void Execute();
     }

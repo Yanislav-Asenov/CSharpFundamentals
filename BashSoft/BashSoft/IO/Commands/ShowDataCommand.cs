@@ -1,17 +1,16 @@
 ﻿namespace BashSoft.IO.Commands
 {
+    using BashSoft.Contracts;
     using BashSoft.Exceptions;
-    using BashSoft.Judge;
-    using BashSoft.Repository;
 
     public class ShowDataCommand : Command
     {
         public ShowDataCommand(
             string input, 
-            string[] data, 
-            Tester judge, 
-            StudentsRepository studentsRepository, 
-            IOManager inputOutputManager) 
+            string[] data,
+            IContentComparer judge,
+            IDatabase studentsRepository,
+            IDirectoryMananger inputOutputManager) 
             : base(input, data, judge, studentsRepository, inputOutputManager)
         {
         }
@@ -21,13 +20,13 @@
             if (this.Data.Length == 2)
             {
                 string courseName = this.Data[1];
-                this.StudentsRepository.GetAllStudentsFromCourse(courseName);
+                this.StudentsRepository.GetStudentsByCourse(courseName);
             }
             else if (this.Data.Length == 3)
             {
                 string courseName = this.Data[1];
                 string username = this.Data[2];
-                this.StudentsRepository.GetStudentScoresFromCourse(courseName, username);
+                this.StudentsRepository.GetStudentMarkInCourse(courseName, username);
             }
             else
             {
