@@ -2,16 +2,16 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class Lake<T> : IEnumerable<T>
+public class Lake : IEnumerable<int>
 {
-    private IList<T> items;
+    private IList<int> items;
 
-    public Lake(IList<T> items)
+    public Lake(IList<int> items)
     {
         this.items = items;
     }
 
-    public IEnumerator<T> GetEnumerator()
+    public IEnumerator<int> GetEnumerator()
     {
         for (int i = 0; i < this.items.Count; i++)
         {
@@ -32,6 +32,6 @@ public class Lake<T> : IEnumerable<T>
 
     IEnumerator IEnumerable.GetEnumerator()
     {
-        throw new NotImplementedException();
+        return this.GetEnumerator();
     }
 }

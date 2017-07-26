@@ -29,7 +29,7 @@ public class Startup
         int numberOfNotEqualPeople = people.Count(p => targetPerson.CompareTo(p) != 0);
         int numberOfTotalPeople = people.Count;
 
-        if (numberOfEqualPeople == 0)
+        if (numberOfEqualPeople <= 1)
         {
             Console.WriteLine("No matches");
         }

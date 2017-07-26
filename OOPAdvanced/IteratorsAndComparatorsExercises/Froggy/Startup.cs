@@ -6,8 +6,12 @@ public class Startup
 {
     public static void Main()
     {
-        IList<string> inputItems = Console.ReadLine().Split(new[] { ' ', ',' }, StringSplitOptions.RemoveEmptyEntries).ToList();
-        Lake<string> lake = new Lake<string>(inputItems);
+        IList<int> inputItems = Console.ReadLine()
+            .Split(new[] { ' ', ',' }, StringSplitOptions.RemoveEmptyEntries)
+            .Select(int.Parse)
+            .ToList();
+
+        Lake lake = new Lake(inputItems);
 
         Console.WriteLine(string.Join(", ", lake));
     }
