@@ -4,6 +4,13 @@
     private int age;
     private string kind;
 
+    public Pet(string name, int age, string kind)
+    {
+        this.Name = name;
+        this.Age = age;
+        this.Kind = kind;
+    }
+
     public string Name
     {
         get => this.name;
@@ -20,5 +27,10 @@
     {
         get => this.kind;
         set => this.kind = value;
+    }
+
+    public override string ToString()
+    {
+        return $"{this.Name} {this.Age} {this.Kind}";
     }
 }
