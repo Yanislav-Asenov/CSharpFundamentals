@@ -1,16 +1,16 @@
 ﻿namespace BashSoft.Models
 {
     using System.Collections.Generic;
-    using BashSoft.Exceptions;
     using BashSoft.Contracts;
+    using BashSoft.Exceptions;
 
     public class SoftUniCourse : ICourse
     {
-        private string name;
-        private Dictionary<string, IStudent> studentsByName;
-
         public const int NumberOfTasksOnExam = 5;
         public const int MaxScoreOnExamTask = 100;
+
+        private string name;
+        private Dictionary<string, IStudent> studentsByName;
 
         public SoftUniCourse(string courseName)
         {
@@ -20,7 +20,7 @@
 
         public string Name
         {
-            get { return this.name; }
+            get => this.name;
             set
             {
                 if (string.IsNullOrEmpty(value))

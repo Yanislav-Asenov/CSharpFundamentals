@@ -1,12 +1,12 @@
 ﻿namespace BashSoft.IO
 {
     using System;
-    using BashSoft.StaticData;
     using BashSoft.Contracts;
+    using BashSoft.StaticData;
 
     public class InputReader : IReader
     {
-        private const string endCommand = "quit";
+        private const string EndCommand = "quit";
         private IInterpreter commandInterpreter;
 
         public InputReader(IInterpreter commandInterpreter)
@@ -16,13 +16,13 @@
 
         public void StartReadingCommands()
         {
-            OutputWriter.WriteMessage($"{SessionData.currentPath}> ");
+            OutputWriter.WriteMessage($"{SessionData.CurrentPath}> ");
             string input = Console.ReadLine().Trim();
 
-            while (input != endCommand)
+            while (input != EndCommand)
             {
                 this.commandInterpreter.InterpretCommand(input);
-                OutputWriter.WriteMessage($"{SessionData.currentPath}> ");
+                OutputWriter.WriteMessage($"{SessionData.CurrentPath}> ");
                 input = Console.ReadLine().Trim();
             }
         }

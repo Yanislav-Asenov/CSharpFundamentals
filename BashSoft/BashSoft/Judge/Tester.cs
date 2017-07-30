@@ -2,10 +2,10 @@
 {
     using System;
     using System.IO;
+    using BashSoft.Contracts;
     using BashSoft.Exceptions;
     using BashSoft.IO;
     using BashSoft.StaticData;
-    using BashSoft.Contracts;
 
     public class Tester : IContentComparer
     {
@@ -15,15 +15,15 @@
             {
                 OutputWriter.WriteMessageOnNewLine("Reading files...");
 
-                string mismatchPath = GetMismatchPath(expectedOutputPath);
+                string mismatchPath = this.GetMismatchPath(expectedOutputPath);
 
                 string[] actualOutputLines = File.ReadAllLines(userOutputPath);
                 string[] expectedOutputLines = File.ReadAllLines(expectedOutputPath);
 
                 bool hasMismatch;
-                string[] mismatches = GetLinesWithPossibleMismatches(actualOutputLines, expectedOutputLines, out hasMismatch);
+                string[] mismatches = this.GetLinesWithPossibleMismatches(actualOutputLines, expectedOutputLines, out hasMismatch);
 
-                PrintOutput(mismatches, hasMismatch, mismatchPath);
+                this.PrintOutput(mismatches, hasMismatch, mismatchPath);
                 OutputWriter.WriteMessageOnNewLine("Files read!");
             }
             catch (InvalidPathException)
@@ -44,9 +44,7 @@
                 OutputWriter.WriteMessageOnNewLine(line);
             }
 
-            
             File.WriteAllLines(mismatchesPath, mismatches);
-          
 
             OutputWriter.WriteMessageOnNewLine("Files are identical. There are no mismatches.");
         }

@@ -29,7 +29,6 @@
             string takeQuantity = this.Data[4].ToLower();
 
             this.TryParseParameters(orderCommand, takeQuantity, courseName, order);
-
         }
 
         private void TryParseParameters(string takeCommand, string takeQuantity, string courseName, string order)
@@ -42,7 +41,8 @@
                 }
                 else
                 {
-                    if (int.TryParse(takeQuantity, out int studentsToTake))
+                    int studentsToTake;
+                    if (int.TryParse(takeQuantity, out studentsToTake))
                     {
                         this.StudentsRepository.OrderAndTake(courseName, order, studentsToTake);
                     }

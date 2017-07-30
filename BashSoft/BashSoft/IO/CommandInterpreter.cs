@@ -1,9 +1,9 @@
 ﻿namespace BashSoft.IO
 {
     using System;
+    using BashSoft.Contracts;
     using BashSoft.Exceptions;
     using BashSoft.IO.Commands;
-    using BashSoft.Contracts;
 
     public class CommandInterpreter : IInterpreter
     {

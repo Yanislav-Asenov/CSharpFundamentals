@@ -24,7 +24,8 @@
             }
             else if (this.Data.Length == 2)
             {
-                if (int.TryParse(this.Data[1], out int depth))
+                int depth;
+                if (int.TryParse(this.Data[1], out depth))
                 {
                     this.InputOutputManager.TraverseDirectory(depth);
                 }

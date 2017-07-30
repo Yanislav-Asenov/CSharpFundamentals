@@ -1,9 +1,9 @@
 ﻿namespace BashSoft.IO.Commands
 {
     using System.Diagnostics;
+    using BashSoft.Contracts;
     using BashSoft.Exceptions;
     using BashSoft.StaticData;
-    using BashSoft.Contracts;
 
     public class OpenFileCommand : Command
     {
@@ -25,7 +25,7 @@
             }
 
             string fileName = this.Data[1];
-            Process.Start(SessionData.currentPath + "\\" + fileName);
+            Process.Start(SessionData.CurrentPath + "\\" + fileName);
         }
     }
 }

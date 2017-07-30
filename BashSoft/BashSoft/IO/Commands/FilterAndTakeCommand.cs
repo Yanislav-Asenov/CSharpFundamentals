@@ -41,7 +41,8 @@
                 }
                 else
                 {
-                    if (int.TryParse(takeQuantity, out int studentsToTake))
+                    int studentsToTake;
+                    if (int.TryParse(takeQuantity, out studentsToTake))
                     {
                         this.StudentsRepository.FilterAndTake(courseName, filter, studentsToTake);
                     }

@@ -5,11 +5,11 @@
     using System.IO;
     using System.Linq;
     using System.Text.RegularExpressions;
+    using BashSoft.Contracts;
     using BashSoft.Exceptions;
     using BashSoft.IO;
     using BashSoft.Models;
     using BashSoft.StaticData;
-    using BashSoft.Contracts;
 
     public class StudentsRepository : IDatabase
     {
@@ -49,9 +49,98 @@
             this.isDataInitialized = false;
         }
 
+        public void GetStudentMarkInCourse(string courseName, string username)
+        {
+            if (this.IsQueryForStudentPossible(courseName, username))
+            {
+                OutputWriter.PrintStudent(new KeyValuePair<string, double>(username, this.coursesByName[courseName].StudentsByName[username].MarksByCourseName[courseName]));
+            }
+        }
+
+        public void GetStudentsByCourse(string courseName)
+        {
+            if (this.IsQueryForCoursePossible(courseName))
+            {
+                OutputWriter.WriteMessageOnNewLine($"{courseName}:");
+                foreach (var studentMarksEntry in this.coursesByName[courseName].StudentsByName)
+                {
+                    OutputWriter.PrintStudent(new KeyValuePair<string, double>(studentMarksEntry.Key, studentMarksEntry.Value.MarksByCourseName[courseName]));
+                }
+            }
+        }
+
+        public void FilterAndTake(string courseName, string givenFilter, int? studentsToTake = null)
+        {
+            if (this.IsQueryForCoursePossible(courseName))
+            {
+                if (studentsToTake == null)
+                {
+                    studentsToTake = this.coursesByName[courseName].StudentsByName.Count;
+                }
+
+                Dictionary<string, double> marks = this.coursesByName[courseName]
+                    .StudentsByName
+                    .ToDictionary(x => x.Key, x => x.Value.MarksByCourseName[courseName]);
+
+                this.filter.FilterAndTake(marks, givenFilter, studentsToTake.Value);
+            }
+        }
+
+        public void OrderAndTake(string courseName, string comparison, int? studentsToTake = null)
+        {
+            if (this.IsQueryForCoursePossible(courseName))
+            {
+                if (studentsToTake == null)
+                {
+                    studentsToTake = this.coursesByName[courseName].StudentsByName.Count;
+                }
+
+                Dictionary<string, double> marks = this.coursesByName[courseName]
+                    .StudentsByName
+                    .ToDictionary(x => x.Key, x => x.Value.MarksByCourseName[courseName]);
+
+                this.sorter.OrderAndTake(marks, comparison, studentsToTake.Value);
+            }
+        }
+
+        private bool IsQueryForStudentPossible(string courseName, string studentName)
+        {
+            if (this.IsQueryForCoursePossible(courseName) && this.coursesByName[courseName].StudentsByName.ContainsKey(studentName))
+            {
+                return true;
+            }
+            else
+            {
+                OutputWriter.DisplayException(ExceptionMessages.InexistingStudentInDataBase);
+            }
+
+            return false;
+        }
+
+        private bool IsQueryForCoursePossible(string courseName)
+        {
+            if (this.isDataInitialized)
+            {
+                if (this.coursesByName.ContainsKey(courseName))
+                {
+                    return true;
+                }
+                else
+                {
+                    throw new CourseNotFoundException();
+                }
+            }
+            else
+            {
+                OutputWriter.DisplayException(ExceptionMessages.DataNotInitializedExceptionMessage);
+            }
+
+            return false;
+        }
+
         private void ReadData(string fileName)
         {
-            string path = $"{SessionData.currentPath}\\{fileName}";
+            string path = $"{SessionData.CurrentPath}\\{fileName}";
 
             if (File.Exists(path))
             {
@@ -98,14 +187,13 @@
                                 this.coursesByName.Add(courseName, new SoftUniCourse(courseName));
                             }
 
-                            ICourse course = coursesByName[courseName];
-                            IStudent student = studentsByName[username];
+                            ICourse course = this.coursesByName[courseName];
+                            IStudent student = this.studentsByName[username];
 
                             student.EnrollInCourse(course);
                             student.SetMarkOnCourse(courseName, scores);
 
                             course.EnrollStudent(student);
-
                         }
                         catch (FormatException formatException)
                         {
@@ -120,95 +208,6 @@
             else
             {
                 throw new InvalidPathException();
-            }
-        }
-
-        private bool IsQueryForCoursePossible(string courseName)
-        {
-            if (this.isDataInitialized)
-            {
-                if (this.coursesByName.ContainsKey(courseName))
-                {
-                    return true;
-                }
-                else
-                {
-                    throw new CourseNotFoundException();
-                }
-            }
-            else
-            {
-                OutputWriter.DisplayException(ExceptionMessages.DataNotInitializedExceptionMessage);
-            }
-
-            return false;
-        }
-
-        private bool IsQueryForStudentPossible(string courseName, string studentName)
-        {
-            if (this.IsQueryForCoursePossible(courseName) && this.coursesByName[courseName].StudentsByName.ContainsKey(studentName))
-            {
-                return true;
-            }
-            else
-            {
-                OutputWriter.DisplayException(ExceptionMessages.InexistingStudentInDataBase);
-            }
-
-            return false;
-        }
-
-        public void GetStudentMarkInCourse(string courseName, string username)
-        {
-            if (this.IsQueryForStudentPossible(courseName, username))
-            {
-                OutputWriter.PrintStudent(new KeyValuePair<string, double>(username, this.coursesByName[courseName].StudentsByName[username].MarksByCourseName[courseName]));
-            }
-        }
-
-        public void GetStudentsByCourse(string courseName)
-        {
-            if (IsQueryForCoursePossible(courseName))
-            {
-                OutputWriter.WriteMessageOnNewLine($"{courseName}:");
-                foreach (var studentMarksEntry in this.coursesByName[courseName].StudentsByName)
-                {
-                    OutputWriter.PrintStudent(new KeyValuePair<string, double>(studentMarksEntry.Key, studentMarksEntry.Value.MarksByCourseName[courseName]));
-                }
-            }
-        }
-
-        public void FilterAndTake(string courseName, string givenFilter, int? studentsToTake = null)
-        {
-            if (IsQueryForCoursePossible(courseName))
-            {
-                if (studentsToTake == null)
-                {
-                    studentsToTake = this.coursesByName[courseName].StudentsByName.Count;
-                }
-
-                Dictionary<string, double> marks = this.coursesByName[courseName]
-                    .StudentsByName
-                    .ToDictionary(x => x.Key, x => x.Value.MarksByCourseName[courseName]);
-
-                this.filter.FilterAndTake(marks, givenFilter, studentsToTake.Value);
-            }
-        }
-
-        public void OrderAndTake(string courseName, string comparison, int? studentsToTake = null)
-        {
-            if (IsQueryForCoursePossible(courseName))
-            {
-                if (studentsToTake == null)
-                {
-                    studentsToTake = this.coursesByName[courseName].StudentsByName.Count;
-                }
-
-                Dictionary<string, double> marks = this.coursesByName[courseName]
-                    .StudentsByName
-                    .ToDictionary(x => x.Key, x => x.Value.MarksByCourseName[courseName]);
-
-                this.sorter.OrderAndTake(marks, comparison, studentsToTake.Value);
             }
         }
     }

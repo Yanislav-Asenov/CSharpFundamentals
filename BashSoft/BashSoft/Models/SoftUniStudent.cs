@@ -3,9 +3,9 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using BashSoft.Contracts;
     using BashSoft.Exceptions;
     using BashSoft.StaticData;
-    using BashSoft.Contracts;
 
     public class SoftUniStudent : IStudent
     {
@@ -22,10 +22,7 @@
 
         public string UserName
         {
-            get
-            {
-                return this.userName;
-            }
+            get => this.userName;
             private set
             {
                 if (string.IsNullOrEmpty(value))
@@ -62,18 +59,18 @@
                 throw new InvalidOperationException(ExceptionMessages.StudentNotEnrolledInCourse);
             }
 
-            if (scores.Length >  SoftUniCourse.NumberOfTasksOnExam)
+            if (scores.Length > SoftUniCourse.NumberOfTasksOnExam)
             {
                 throw new InvalidOperationException(ExceptionMessages.InvalidNumberOfScores);
             }
 
-            this.marksByCourseName.Add(courseName, CalculateMark(scores));
+            this.marksByCourseName.Add(courseName, this.CalculateMark(scores));
         }
 
         private double CalculateMark(int[] scores)
         {
             double percentageOfSolvedExam = scores.Sum() / (double)(SoftUniCourse.NumberOfTasksOnExam * SoftUniCourse.MaxScoreOnExamTask);
-            double mark = percentageOfSolvedExam * 4 + 2;
+            double mark = (percentageOfSolvedExam * 4) + 2;
             return mark;
         }
     }

@@ -1,8 +1,8 @@
 ﻿namespace BashSoft.IO.Commands
 {
     using System;
-    using BashSoft.Exceptions;
     using BashSoft.Contracts;
+    using BashSoft.Exceptions;
 
     public abstract class Command : IExecutable
     {
@@ -55,7 +55,9 @@
         }
 
         protected IContentComparer Judge => this.judge;
+
         protected IDatabase StudentsRepository => this.studentsRepository;
+
         protected IDirectoryMananger InputOutputManager => this.inputOutputManager;
 
         public abstract void Execute();

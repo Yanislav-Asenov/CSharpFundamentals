@@ -3,9 +3,9 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using BashSoft.Contracts;
     using BashSoft.IO;
     using BashSoft.StaticData;
-    using BashSoft.Contracts;
 
     public class RepositoryFilter : IDataFilter
     {
@@ -13,15 +13,15 @@
         {
             if (wantedFilter == "excellent")
             {
-                FilterAndTake(studentsWithMarks, x => x >= 5, studentsToTake);
+                this.FilterAndTake(studentsWithMarks, x => x >= 5, studentsToTake);
             }
             else if (wantedFilter == "average")
             {
-                FilterAndTake(studentsWithMarks, x => x < 5 && x >= 3.50, studentsToTake);
+                this.FilterAndTake(studentsWithMarks, x => x < 5 && x >= 3.50, studentsToTake);
             }
             else if (wantedFilter == "poor")
             {
-                FilterAndTake(studentsWithMarks, x => x < 3.5, studentsToTake);
+                this.FilterAndTake(studentsWithMarks, x => x < 3.5, studentsToTake);
             }
             else
             {
@@ -51,7 +51,7 @@
         {
             double totalScore = scoresOnTask.Sum();
             double percentageOfAll = totalScore / scoresOnTask.Count / 100.0;
-            double mark = percentageOfAll * 4 + 2;
+            double mark = (percentageOfAll * 4) + 2;
 
             return mark;
         }
