@@ -42,6 +42,8 @@
             }
         }
 
+        public int CompareTo(IStudent other) => this.UserName.CompareTo(other.UserName);
+
         public void EnrollInCourse(ICourse course)
         {
             if (this.enrolledCourses.ContainsKey(course.Name))
@@ -66,6 +68,8 @@
 
             this.marksByCourseName.Add(courseName, this.CalculateMark(scores));
         }
+
+        public override string ToString() => this.UserName;
 
         private double CalculateMark(int[] scores)
         {

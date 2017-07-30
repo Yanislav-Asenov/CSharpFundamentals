@@ -1,5 +1,6 @@
 ﻿namespace BashSoft.Models
 {
+    using System;
     using System.Collections.Generic;
     using BashSoft.Contracts;
     using BashSoft.Exceptions;
@@ -40,6 +41,8 @@
             }
         }
 
+        public int CompareTo(ICourse other) => this.Name.CompareTo(other.Name);
+
         public void EnrollStudent(IStudent student)
         {
             if (this.studentsByName.ContainsKey(student.UserName))
@@ -49,5 +52,7 @@
 
             this.studentsByName.Add(student.UserName, student);
         }
+
+        public override string ToString() => this.Name;
     }
 }

@@ -62,6 +62,8 @@
                     return new DropDatabaseCommand(input, data, this.judge, this.studentsRepository, this.inputOutputManager);
                 case "show":
                     return new ShowDataCommand(input, data, this.judge, this.studentsRepository, this.inputOutputManager);
+                case "display":
+                    return new DisplayCommand(input, data, this.judge, this.studentsRepository, this.inputOutputManager);
                 default:
                     throw new InvalidCommandException(input);
             }

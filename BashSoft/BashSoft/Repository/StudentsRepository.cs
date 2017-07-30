@@ -6,6 +6,7 @@
     using System.Linq;
     using System.Text.RegularExpressions;
     using BashSoft.Contracts;
+    using BashSoft.DataStructures;
     using BashSoft.Exceptions;
     using BashSoft.IO;
     using BashSoft.Models;
@@ -101,6 +102,22 @@
 
                 this.sorter.OrderAndTake(marks, comparison, studentsToTake.Value);
             }
+        }
+
+        public ISimpleOrderedBag<ICourse> GetAllCoursesSorted(IComparer<ICourse> comparison)
+        {
+            ISimpleOrderedBag<ICourse> sortedCourses = new SimpleSortedList<ICourse>(comparison);
+            sortedCourses.AddAll(this.coursesByName.Values);
+
+            return sortedCourses;
+        }
+
+        public ISimpleOrderedBag<IStudent> GetAllStudentsSorted(IComparer<IStudent> comparison)
+        {
+            ISimpleOrderedBag<IStudent> sortedStudents = new SimpleSortedList<IStudent>(comparison);
+            sortedStudents.AddAll(this.studentsByName.Values);
+
+            return sortedStudents;
         }
 
         private bool IsQueryForStudentPossible(string courseName, string studentName)
