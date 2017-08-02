@@ -62,4 +62,42 @@ public class Spy
 
         return result.ToString().Trim();
     }
+
+    public string RevealPrivateMethods(string targetClassName)
+    {
+        Type targetClassType = Type.GetType(targetClassName);
+        
+        StringBuilder result = new StringBuilder();
+        result.AppendLine($"All Private Methods of Class: {targetClassName}");
+        result.AppendLine($"Base Class: {targetClassType.BaseType.Name}");
+
+        MethodInfo[] targetClassPrivateMethods = targetClassType.GetMethods(BindingFlags.NonPublic | BindingFlags.Instance);
+        foreach (MethodInfo method in targetClassPrivateMethods)
+        {
+            result.AppendLine(method.Name);
+        }
+    
+        return result.ToString().Trim();
+    }
+
+    public string CollectGettersAndSetters(string targetClassName)
+    {
+        Type targetClassType = Type.GetType(targetClassName);
+        MethodInfo[] targetClassMethods = targetClassType.GetMethods(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
+
+        StringBuilder result = new StringBuilder();
+        MethodInfo[] targetClassGetters = targetClassMethods.Where(m => m.Name.StartsWith("get")).ToArray();
+        foreach (MethodInfo method in targetClassGetters)
+        {
+            result.AppendLine($"{method.Name} will return {method.ReturnType}");
+        }
+
+        MethodInfo[] targetClassSetters = targetClassMethods.Where(m => m.Name.StartsWith("set")).ToArray();
+        foreach (MethodInfo method in targetClassSetters)
+        {
+            result.AppendLine($"{method.Name} will set field of {method.GetParameters().First().ParameterType}");
+        }
+
+        return result.ToString().Trim();
+    }
 }
