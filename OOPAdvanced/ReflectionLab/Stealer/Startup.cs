@@ -6,6 +6,6 @@ public class Startup
     {
         Spy spy = new Spy();
 
-        Console.WriteLine(spy.AnalyzeAcessModifiers("Hacker"));
+        Console.WriteLine(spy.CollectGettersAndSetters("Hacker"));
     }
 }
