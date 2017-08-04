@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseProblem", "Database
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseProblem.Tests", "DatabaseProblem.Tests\DatabaseProblem.Tests.csproj", "{6C7E6C4F-EF84-449C-A7EB-9371DFEF7046}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IteratorProblem", "IteratorProblem\IteratorProblem.csproj", "{42963BE3-FD64-4DDD-98DB-DE728D75F4C9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IteratorProblemTests", "IteratorProblemTests\IteratorProblemTests.csproj", "{84DAAE9C-20A9-4CD1-96B1-7A52FD03BF69}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{6C7E6C4F-EF84-449C-A7EB-9371DFEF7046}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6C7E6C4F-EF84-449C-A7EB-9371DFEF7046}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6C7E6C4F-EF84-449C-A7EB-9371DFEF7046}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42963BE3-FD64-4DDD-98DB-DE728D75F4C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42963BE3-FD64-4DDD-98DB-DE728D75F4C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42963BE3-FD64-4DDD-98DB-DE728D75F4C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42963BE3-FD64-4DDD-98DB-DE728D75F4C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84DAAE9C-20A9-4CD1-96B1-7A52FD03BF69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84DAAE9C-20A9-4CD1-96B1-7A52FD03BF69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84DAAE9C-20A9-4CD1-96B1-7A52FD03BF69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84DAAE9C-20A9-4CD1-96B1-7A52FD03BF69}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
