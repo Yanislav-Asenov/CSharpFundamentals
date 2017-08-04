@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IteratorProblem", "Iterator
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IteratorProblemTests", "IteratorProblemTests\IteratorProblemTests.csproj", "{84DAAE9C-20A9-4CD1-96B1-7A52FD03BF69}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BubbleSortProblem", "BubbleSortProblem\BubbleSortProblem.csproj", "{00B84C08-606A-45A4-AB4E-DF5F13D61073}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BubbleSortProblemTests", "BubbleSortProblemTests\BubbleSortProblemTests.csproj", "{811E33B9-B3ED-4D1B-971C-7F4F45E49499}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{84DAAE9C-20A9-4CD1-96B1-7A52FD03BF69}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{84DAAE9C-20A9-4CD1-96B1-7A52FD03BF69}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{84DAAE9C-20A9-4CD1-96B1-7A52FD03BF69}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00B84C08-606A-45A4-AB4E-DF5F13D61073}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00B84C08-606A-45A4-AB4E-DF5F13D61073}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00B84C08-606A-45A4-AB4E-DF5F13D61073}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00B84C08-606A-45A4-AB4E-DF5F13D61073}.Release|Any CPU.Build.0 = Release|Any CPU
+		{811E33B9-B3ED-4D1B-971C-7F4F45E49499}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{811E33B9-B3ED-4D1B-971C-7F4F45E49499}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{811E33B9-B3ED-4D1B-971C-7F4F45E49499}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{811E33B9-B3ED-4D1B-971C-7F4F45E49499}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
