@@ -1,17 +1,17 @@
 ﻿namespace BashSoft.IO.Commands
 {
+    using BashSoft.Attributes;
     using BashSoft.Contracts;
     using BashSoft.Exceptions;
 
+    [Alias("readdb")]
     public class ReadDatabaseFromFileCommand : Command
     {
-        public ReadDatabaseFromFileCommand(
-            string input, 
-            string[] data,
-            IContentComparer judge,
-            IDatabase studentsRepository,
-            IDirectoryMananger inputOutputManager) 
-            : base(input, data, judge, studentsRepository, inputOutputManager)
+        [Inject]
+        private IDatabase studentsRepository = null;
+
+        public ReadDatabaseFromFileCommand(string input, string[] data) 
+            : base(input, data)
         {
         }
 
@@ -23,7 +23,7 @@
             }
 
             string fileName = this.Data[1];
-            this.StudentsRepository.LoadData(fileName);
+            this.studentsRepository.LoadData(fileName);
         }
     }
 }

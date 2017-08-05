@@ -1,6 +1,6 @@
 ﻿namespace BashSoft.Contracts
 {
-    public interface IDirectoryMananger : IDirectoryChanger, IDirectoryCreator, IDirectoryTraverser
+    public interface IDirectoryManager : IDirectoryChanger, IDirectoryCreator, IDirectoryTraverser
     {
     }
 }

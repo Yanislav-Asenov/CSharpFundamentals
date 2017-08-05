@@ -8,22 +8,11 @@
     {
         private string input;
         private string[] data;
-        private IContentComparer judge;
-        private IDatabase studentsRepository;
-        private IDirectoryMananger inputOutputManager;
 
-        public Command(
-            string input, 
-            string[] data,
-            IContentComparer judge,
-            IDatabase studentsRepository,
-            IDirectoryMananger inputOutputManager)
+        public Command(string input, string[] data)
         {
             this.Input = input;
             this.Data = data;
-            this.judge = judge;
-            this.studentsRepository = studentsRepository;
-            this.inputOutputManager = inputOutputManager;
         }
 
         public string Input
@@ -53,12 +42,6 @@
                 this.data = value;
             }
         }
-
-        protected IContentComparer Judge => this.judge;
-
-        protected IDatabase StudentsRepository => this.studentsRepository;
-
-        protected IDirectoryMananger InputOutputManager => this.inputOutputManager;
 
         public abstract void Execute();
     }

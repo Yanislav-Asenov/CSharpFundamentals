@@ -7,7 +7,7 @@
     using BashSoft.Exceptions;
     using BashSoft.StaticData;
 
-    public class IOManager : IDirectoryMananger
+    public class IOManager : IDirectoryManager
     {
         public void TraverseDirectory(int depth)
         {

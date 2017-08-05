@@ -10,7 +10,7 @@
         public static void Main()
         {
             IContentComparer tester = new Tester();
-            IDirectoryMananger inputOutputManager = new IOManager();
+            IDirectoryManager inputOutputManager = new IOManager();
             IDatabase repository = new StudentsRepository(new RepositoryFilter(), new RepositorySorter());
 
             IInterpreter commandInterpreter = new CommandInterpreter(tester, repository, inputOutputManager);

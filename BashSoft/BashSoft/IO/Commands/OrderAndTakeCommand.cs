@@ -1,18 +1,18 @@
 ﻿namespace BashSoft.IO.Commands
 {
+    using BashSoft.Attributes;
     using BashSoft.Contracts;
     using BashSoft.Exceptions;
     using BashSoft.StaticData;
 
+    [Alias("order")]
     public class OrderAndTakeCommand : Command
     {
-        public OrderAndTakeCommand(
-            string input, 
-            string[] data,
-            IContentComparer judge,
-            IDatabase studentsRepository,
-            IDirectoryMananger inputOutputManager) 
-            : base(input, data, judge, studentsRepository, inputOutputManager)
+        [Inject]
+        private IDatabase studentsRepository = null;
+
+        public OrderAndTakeCommand(string input, string[] data) 
+            : base(input, data)
         {
         }
 
@@ -37,14 +37,14 @@
             {
                 if (takeQuantity == "all")
                 {
-                    this.StudentsRepository.OrderAndTake(courseName, order);
+                    this.studentsRepository.OrderAndTake(courseName, order);
                 }
                 else
                 {
                     int studentsToTake;
                     if (int.TryParse(takeQuantity, out studentsToTake))
                     {
-                        this.StudentsRepository.OrderAndTake(courseName, order, studentsToTake);
+                        this.studentsRepository.OrderAndTake(courseName, order, studentsToTake);
                     }
                     else
                     {
