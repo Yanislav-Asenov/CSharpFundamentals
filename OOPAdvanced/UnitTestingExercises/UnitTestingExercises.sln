@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BubbleSortProblemTests", "B
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegrationTestsProblem", "IntegrationTestsProblem\IntegrationTestsProblem.csproj", "{94192261-A966-4FF2-BF25-34C86EDE04CB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegrationTestsProblem.Tests", "IntegrationTestsProblem.Tests\IntegrationTestsProblem.Tests.csproj", "{17678FB3-39B5-4B61-A64D-4196CDECF53C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{94192261-A966-4FF2-BF25-34C86EDE04CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{94192261-A966-4FF2-BF25-34C86EDE04CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{94192261-A966-4FF2-BF25-34C86EDE04CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17678FB3-39B5-4B61-A64D-4196CDECF53C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17678FB3-39B5-4B61-A64D-4196CDECF53C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17678FB3-39B5-4B61-A64D-4196CDECF53C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17678FB3-39B5-4B61-A64D-4196CDECF53C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

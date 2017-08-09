@@ -38,12 +38,6 @@
 
         private IExecutable ParseCommand(string input, string commandName, string[] data)
         {
-            object[] parametersForConstructor = new object[]
-            {
-                input,
-                data,
-            };
-
             Type typeOfCommand =
                 Assembly.GetExecutingAssembly()
                     .GetTypes()
@@ -53,6 +47,11 @@
 
             Type typeOfCommandInterpreter = typeof(CommandInterpreter);
 
+            object[] parametersForConstructor = new object[]
+            {
+                input,
+                data,
+            };
             Command command = (Command)Activator.CreateInstance(typeOfCommand, parametersForConstructor);
 
             FieldInfo[] fieldsOfCommand = typeOfCommand

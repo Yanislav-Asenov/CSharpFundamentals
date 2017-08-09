@@ -24,6 +24,12 @@
             this.users = new List<IUser>(users);
         }
 
+        public Category(string name, IEnumerable<ICategory> categories)
+            : this(name)
+        {
+            this.subcategories = new List<ICategory>(categories);
+        }
+
         public Category(string name, IEnumerable<IUser> users, IEnumerable<ICategory> categories)
             : this(name, users)
         {
@@ -35,7 +41,7 @@
             get => this.name;
             private set
             {
-                if (value is null)
+                if (string.IsNullOrEmpty(value))
                 {
                     throw new ArgumentNullException();
                 }
@@ -44,9 +50,33 @@
             }
         }
 
-        public IEnumerable<IUser> Users => this.users;
+        public IEnumerable<IUser> Users
+        {
+            get => this.users;
+            set
+            {
+                if (value is null)
+                {
+                    throw new ArgumentNullException(nameof(this.Users));
+                }
 
-        public IEnumerable<ICategory> Subcategories => this.subcategories;
+                this.users = new List<IUser>(value);
+            }
+        }
+
+        public IEnumerable<ICategory> Subcategories
+        {
+            get => this.subcategories;
+            set
+            {
+                if (value is null)
+                {
+                    throw new ArgumentNullException(nameof(this.Users));
+                }
+
+                this.subcategories = new List<ICategory>(value);
+            }
+        }
 
         public void AddSubcategory(ICategory category)
         {

@@ -26,7 +26,7 @@
             get => this.name;
             set
             {
-                if (value is null)
+                if (string.IsNullOrEmpty(value))
                 {
                     throw new ArgumentNullException();
                 }
@@ -35,6 +35,18 @@
             }
         }
 
-        public IEnumerable<ICategory> Categories => this.categories;
+        public IEnumerable<ICategory> Categories
+        {
+            get => this.categories;
+            private set
+            {
+                if (value is null)
+                {
+                    throw new ArgumentNullException(nameof(this.Categories));
+                }
+
+                this.categories = new List<ICategory>(value);
+            }
+        }
     }
 }
