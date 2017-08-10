@@ -1,5 +1,7 @@
-﻿namespace _04.Recharge
+﻿namespace _04.Recharge.Models
 {
+    using _04.Recharge.Contracts;
+
     public class RechargeStation
     {
         public void Recharge(IRechargeable rechargeable)

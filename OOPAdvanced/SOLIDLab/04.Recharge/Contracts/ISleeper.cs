@@ -1,4 +1,4 @@
-﻿namespace _04.Recharge
+﻿namespace _04.Recharge.Contracts
 {
     public interface ISleeper
     {

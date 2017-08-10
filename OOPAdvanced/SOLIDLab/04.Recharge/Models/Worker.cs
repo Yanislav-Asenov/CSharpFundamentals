@@ -1,6 +1,8 @@
-﻿namespace _04.Recharge
+﻿namespace _04.Recharge.Models
 {
-    public abstract class Worker : ISleeper, IRechargeable
+    using _04.Recharge.Contracts;
+
+    public abstract class Worker : IWorker
     {
         private string id;
         private int workingHours;
@@ -10,13 +12,9 @@
             this.id = id;
         }
 
-        public void Work(int hours)
+        public virtual void Work(int hours)
         {
             this.workingHours += hours;
         }
-
-        public abstract void Sleep();
-
-        public abstract void Recharge();
     }
 }

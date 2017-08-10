@@ -1,5 +1,6 @@
-﻿namespace _04.Recharge
+﻿namespace _04.Recharge.Models
 {
+    using _04.Recharge.Contracts;
     using System;
 
     public class Robot : Worker, IRechargeable
@@ -23,7 +24,7 @@
             set { this.currentPower = value; }
         }
 
-        public void Work(int hours)
+        public override void Work(int hours)
         {
             if (hours > this.currentPower)
             {
@@ -34,14 +35,9 @@
             this.currentPower -= hours;
         }
 
-        public override void Recharge()
+        public void Recharge()
         {
             this.currentPower = this.capacity;
-        }
-
-        public override void Sleep()
-        {
-            throw new InvalidOperationException("Robots cannot sleep");
         }
     }
 }
