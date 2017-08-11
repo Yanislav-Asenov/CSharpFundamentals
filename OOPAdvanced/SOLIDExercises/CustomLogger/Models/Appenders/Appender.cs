@@ -31,28 +31,28 @@
 
         protected bool IsReportLevelInRange(ReportLevel reportLevel)
         {
-            switch (reportLevel)
+            switch (this.ReportLevel)
             {
                 case ReportLevel.Info:
-                    return this.ReportLevel == ReportLevel.Info
-                        || this.ReportLevel == ReportLevel.Warning
-                        || this.ReportLevel == ReportLevel.Error
-                        || this.ReportLevel == ReportLevel.Critical
-                        || this.ReportLevel == ReportLevel.Fatal;
+                    return reportLevel == ReportLevel.Info
+                        || reportLevel == ReportLevel.Warning
+                        || reportLevel == ReportLevel.Error
+                        || reportLevel == ReportLevel.Critical
+                        || reportLevel == ReportLevel.Fatal;
                 case ReportLevel.Warning:
-                    return this.ReportLevel == ReportLevel.Warning
-                        || this.ReportLevel == ReportLevel.Error
-                        || this.ReportLevel == ReportLevel.Critical
-                        || this.ReportLevel == ReportLevel.Fatal;
+                    return reportLevel == ReportLevel.Warning
+                        || reportLevel == ReportLevel.Error
+                        || reportLevel == ReportLevel.Critical
+                        || reportLevel == ReportLevel.Fatal;
                 case ReportLevel.Error:
-                    return this.ReportLevel == ReportLevel.Error
-                        || this.ReportLevel == ReportLevel.Critical
-                        || this.ReportLevel == ReportLevel.Fatal;
+                    return reportLevel == ReportLevel.Error
+                        || reportLevel == ReportLevel.Critical
+                        || reportLevel == ReportLevel.Fatal;
                 case ReportLevel.Critical:
-                    return this.ReportLevel == ReportLevel.Critical
-                        || this.ReportLevel == ReportLevel.Fatal;
+                    return reportLevel == ReportLevel.Critical
+                        || reportLevel == ReportLevel.Fatal;
                 case ReportLevel.Fatal:
-                    return this.ReportLevel == ReportLevel.Fatal;
+                    return reportLevel == ReportLevel.Fatal;
                 default:
                     return false;
             }
