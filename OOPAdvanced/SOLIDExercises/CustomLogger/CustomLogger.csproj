@@ -56,7 +56,7 @@
     <Compile Include="Models\Appenders\Appender.cs" />
     <Compile Include="Models\Appenders\ConsoleAppender.cs" />
     <Compile Include="Models\Appenders\FileAppender.cs" />
-    <Compile Include="Models\Engine.cs" />
+    <Compile Include="Core\Engine.cs" />
     <Compile Include="Models\Layouts\XmlLayout.cs" />
     <Compile Include="Models\LogFile.cs" />
     <Compile Include="Models\Logger.cs" />

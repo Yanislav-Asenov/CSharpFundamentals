@@ -1,8 +1,9 @@
-﻿namespace CustomLogger.Models
+﻿namespace CustomLogger.Core
 {
     using System;
     using CustomLogger.Contracts;
     using System.Collections.Generic;
+    using CustomLogger.Models;
 
     public class Engine : IRunnable
     {

@@ -1,6 +1,7 @@
 ﻿namespace CustomLogger
 {
     using CustomLogger.Contracts;
+    using CustomLogger.Core;
     using CustomLogger.Factories;
     using CustomLogger.Models;
 
