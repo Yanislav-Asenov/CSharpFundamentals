@@ -37,8 +37,15 @@
 
         public int Size => this.size;
 
+        public int Capacity => this.innerCollection.Length;
+
         public void Add(T element)
         {
+            if (element == null)
+            {
+                throw new ArgumentNullException();
+            }
+
             if (this.innerCollection.Length == this.Size)
             {
                 this.Resize();
@@ -51,6 +58,11 @@
 
         public void AddAll(ICollection<T> elements)
         {
+            if (elements == null)
+            {
+                throw new ArgumentNullException();
+            }
+
             if (this.Size + elements.Count >= this.innerCollection.Length)
             {
                 this.MultiResize(elements);
@@ -80,6 +92,11 @@
 
         public string JoinWith(string joiner)
         {
+            if (joiner == null)
+            {
+                throw new ArgumentNullException();
+            }
+
             StringBuilder builder = new StringBuilder();
 
             int counter = 0;
@@ -96,6 +113,41 @@
             }
 
             return builder.ToString();
+        }
+
+        public bool Remove(T element)
+        {
+            if (element == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            bool hasBeenRemoved = false;
+            int indexOfRemovedElement = 0;
+
+            for (int i = 0; i < this.Size; i++)
+            {
+                if (this.innerCollection[i].Equals(element))
+                {
+                    indexOfRemovedElement = i;
+                    this.innerCollection[i] = default(T);
+                    hasBeenRemoved = true;
+                    break;
+                }
+            }
+
+            if (hasBeenRemoved)
+            {
+                for (int i = indexOfRemovedElement; i < this.Size - 1; i++)
+                {
+                    this.innerCollection[i] = this.innerCollection[i + 1];
+                }
+
+                this.innerCollection[this.Size - 1] = default(T);
+                this.size--;
+            }
+
+            return hasBeenRemoved;
         }
 
         private void InitializeInnerCollection(int capacity)
