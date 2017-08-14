@@ -1,20 +1,18 @@
-﻿namespace EventImplementation.Models
+﻿
+using System;
+
+public class NameChangeEventArgs : EventArgs
 {
-    using System;
+    private string name;
 
-    public class NameChangeEventArgs : EventArgs
+    public NameChangeEventArgs(string name)
     {
-        private string name;
+        this.Name = name;
+    }
 
-        public NameChangeEventArgs(string name)
-        {
-            this.Name = name;
-        }
-
-        public string Name
-        {
-            get => this.name;
-            private set => this.name = value;
-        }
+    public string Name
+    {
+        get => this.name;
+        private set => this.name = value;
     }
 }

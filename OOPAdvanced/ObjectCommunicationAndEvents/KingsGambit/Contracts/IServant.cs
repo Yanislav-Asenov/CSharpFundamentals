@@ -4,8 +4,10 @@
 
     public interface IServant : IEntity
     {
-        void Die();
+        void ReceiveAttack();
 
         void RespondToKingAttack(object sender, EventArgs e);
+
+        event EventHandler Die;
     }
 }

@@ -15,14 +15,14 @@
             string[] royalGuards = Console.ReadLine().Split();
             string[] footmen = Console.ReadLine().Split();
 
-            Dictionary<string, IServant> servantsByName = new Dictionary<string, IServant>();
+            ServantsCollection servantCollection = new ServantsCollection();
             foreach (var servantName in royalGuards)
             {
-                servantsByName.Add(servantName, new RoyalGuard(servantName, king));
+                servantCollection.Add(servantName, new RoyalGuard(servantName, king));
             }
             foreach (var servantName in footmen)
             {
-                servantsByName.Add(servantName, new Footman(servantName, king));
+                servantCollection.Add(servantName, new Footman(servantName, king));
             }
 
             string command = Console.ReadLine();
@@ -38,8 +38,7 @@
                     string commandName = commandArgs[0];
                     string servantName = commandArgs[1];
 
-                    servantsByName[servantName].Die();
-                    servantsByName.Remove(servantName);
+                    servantCollection.AttackServant(servantName);
                 }
 
                 command = Console.ReadLine();

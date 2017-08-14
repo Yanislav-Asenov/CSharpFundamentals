@@ -1,23 +1,19 @@
-﻿namespace EventImplementation
+﻿using System;
+
+public class Startup
 {
-    using EventImplementation.Models;
-    using System;
-
-    public class Startup
+    public static void Main()
     {
-        public static void Main()
+        var dispatcher = new Dispatcher();
+        var handler = new Handler();
+        handler.SubscribeToDispatcher(dispatcher);
+
+        string input = Console.ReadLine();
+        while (input != "End")
         {
-            var dispatcher = new Dispatcher();
-            var handler = new Handler();
-            handler.SubscribeToDispatcher(dispatcher);
+            dispatcher.Name = input;
 
-            string input = Console.ReadLine();
-            while (input != "END")
-            {
-                dispatcher.Name = input;
-
-                input = Console.ReadLine();
-            }
+            input = Console.ReadLine();
         }
     }
 }

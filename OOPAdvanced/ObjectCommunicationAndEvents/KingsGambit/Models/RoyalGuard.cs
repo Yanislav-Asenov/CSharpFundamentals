@@ -5,7 +5,10 @@
 
     public class RoyalGuard : Entity, IServant
     {
+        private const int RequiredHitsToDie = 3;
+
         private IAttackable king;
+        private int requiredHitsToDie = RequiredHitsToDie;
 
         public RoyalGuard(string name, IAttackable king)
             : base(name)
@@ -14,10 +17,18 @@
             this.king.ReceiveAttack += this.RespondToKingAttack;
         }
 
-        public void Die()
+        public event EventHandler Die;
+
+        public void ReceiveAttack()
         {
-            this.king.ReceiveAttack -= this.RespondToKingAttack;
-        }
+            this.requiredHitsToDie--;
+
+            if (this.requiredHitsToDie <= 0)
+            {
+                this.king.ReceiveAttack -= this.RespondToKingAttack;
+                this.Die(this, EventArgs.Empty);
+            }
+        }    
 
         public void RespondToKingAttack(object sender, EventArgs e)
         {

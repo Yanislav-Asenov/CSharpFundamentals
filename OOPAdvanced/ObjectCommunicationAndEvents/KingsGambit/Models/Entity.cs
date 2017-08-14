@@ -15,15 +15,7 @@
         public string Name
         {
             get => this.name;
-            set
-            {
-                if (string.IsNullOrEmpty(value))
-                {
-                    throw new ArgumentNullException(nameof(this.Name));
-                }
-
-                this.name = value;
-            }
+            set => this.name = value;
         }
     }
 }

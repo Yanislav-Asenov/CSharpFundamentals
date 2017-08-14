@@ -4,12 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5B30C44C-9B02-4E69-9F38-C5C44615C23A}</ProjectGuid>
+    <ProjectGuid>{4195EAA7-223A-4304-9251-28853E28F626}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>KingsGambit</RootNamespace>
-    <AssemblyName>KingsGambit</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <RootNamespace>DependencyInversionSkeleton</RootNamespace>
+    <AssemblyName>DependencyInversionSkeleton</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -41,19 +42,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Contracts\IAttackable.cs" />
-    <Compile Include="Contracts\IEntity.cs" />
-    <Compile Include="Contracts\IServant.cs" />
-    <Compile Include="Models\Entity.cs" />
-    <Compile Include="Models\Footman.cs" />
-    <Compile Include="Models\King.cs" />
-    <Compile Include="Models\RoyalGuard.cs" />
-    <Compile Include="Models\ServantsCollection.cs" />
+    <Compile Include="Attributes\StrategyAttribute.cs" />
+    <Compile Include="Contracts\ICalculationStrategy.cs" />
+    <Compile Include="Contracts\IPrimitiveCalculator.cs" />
+    <Compile Include="Models\CalculationStrategies\AdditionStrategy.cs" />
+    <Compile Include="Models\CalculationStrategies\DivisionStrategy.cs" />
+    <Compile Include="Models\CalculationStrategies\MultiplicationStrategy.cs" />
+    <Compile Include="Models\PrimitiveCalculator.cs" />
+    <Compile Include="Models\CalculationStrategies\SubtractionStrategy.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

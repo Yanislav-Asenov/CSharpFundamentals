@@ -1,11 +1,8 @@
-﻿namespace EventImplementation.Contracts
+﻿using System;
+
+public interface IDispatcher
 {
-    using System;
+    string Name { get; }
 
-    public interface IDispatcher
-    {
-        string Name { get; }
-
-        event EventHandler NameChange;
-    }
+    event EventHandler NameChange;
 }

@@ -4,12 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5B30C44C-9B02-4E69-9F38-C5C44615C23A}</ProjectGuid>
+    <ProjectGuid>{4B37FFCA-A4C3-4C9A-B3F2-C70F9377F378}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>KingsGambit</RootNamespace>
-    <AssemblyName>KingsGambit</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <RootNamespace>_02.Blobs</RootNamespace>
+    <AssemblyName>02.Blobs</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -41,19 +42,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Contracts\IAttackable.cs" />
-    <Compile Include="Contracts\IEntity.cs" />
-    <Compile Include="Contracts\IServant.cs" />
-    <Compile Include="Models\Entity.cs" />
-    <Compile Include="Models\Footman.cs" />
-    <Compile Include="Models\King.cs" />
-    <Compile Include="Models\RoyalGuard.cs" />
-    <Compile Include="Models\ServantsCollection.cs" />
-    <Compile Include="Startup.cs" />
+    <Compile Include="Entities\Attacks\Attack.cs" />
+    <Compile Include="Entities\Attacks\PutridFart.cs" />
+    <Compile Include="Entities\Behaviors\Behavior.cs" />
+    <Compile Include="Entities\Behaviors\Aggressive.cs" />
+    <Compile Include="Entities\Behaviors\Inflated.cs" />
+    <Compile Include="Entities\Blob.cs" />
+    <Compile Include="Interfaces\IAttack.cs" />
+    <Compile Include="Interfaces\IAttackable.cs" />
+    <Compile Include="Interfaces\IBehavior.cs" />
+    <Compile Include="Interfaces\IBlob.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Core\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -15,7 +15,8 @@
         public void RespondToAttack()
         {
             Console.WriteLine($"King {this.Name} is under attack!");
-            this.ReceiveAttack(this, EventArgs.Empty);
+
+            this.ReceiveAttack?.Invoke(this, EventArgs.Empty);
         }
     }
 }
