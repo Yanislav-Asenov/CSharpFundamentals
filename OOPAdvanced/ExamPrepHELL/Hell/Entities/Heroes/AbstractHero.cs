@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 
 public class AbstractHero : IHero, IComparable<AbstractHero>
@@ -21,7 +22,7 @@ public class AbstractHero : IHero, IComparable<AbstractHero>
         this.Intelligence = intelligence;
         this.HitPoints = hitPoints;
         this.Damage = damage;
-        this.Inventory = new HeroInventory();
+        this.inventory = new HeroInventory();
     }
 
     public string Name
@@ -76,8 +77,21 @@ public class AbstractHero : IHero, IComparable<AbstractHero>
         private set => this.inventory = value;
     }
 
-    //REFLECTION
-    public ICollection<IItem> Items { get; }
+    // REFLECTION
+    public ICollection<IItem> Items
+    {
+        get
+        {
+            Type inventoryType = this.inventory.GetType();
+            FieldInfo targetField = inventoryType
+                .GetFields(BindingFlags.Instance | BindingFlags.NonPublic)
+                .FirstOrDefault(f => f.IsPrivate && f.GetCustomAttributes<ItemAttribute>().Any());
+
+            var targetFieldValue = targetField.GetValue(this.inventory) as IDictionary<string, IItem>;
+
+            return targetFieldValue.Values;
+        }
+    }
 
     public void AddRecipe(IRecipe recipe)
     {
@@ -106,15 +120,15 @@ public class AbstractHero : IHero, IComparable<AbstractHero>
     public override string ToString()
     {
         StringBuilder result = new StringBuilder();
-        result.AppendLine($"{this.GetType().Name}: {this.Name}");
-        result.AppendLine($"###HitPoints: {this.HitPoints}");
-        result.AppendLine($"###Damage: {this.Damage}");
-        result.AppendLine($"###Strength: {this.Strength}");
-        result.AppendLine($"###Agility: {this.Agility}");
-        result.AppendLine($"###Intelligence: {this.Intelligence}");
-
-        string items = this.Items.Count == 0 ? "None" : string.Join(", ", this.Items.Select(i => i.Name));
-        result.AppendLine($"###Items: {items}");
+        result.AppendLine($"Hero: {this.Name}, Class: {this.GetType().Name}");
+        result.AppendLine($"HitPoints: {this.HitPoints}, Damage: {this.Damage}");
+        result.AppendLine($"Strength: {this.Strength}");
+        result.AppendLine($"Agility: {this.Agility}");
+        result.AppendLine($"Intelligence: {this.Intelligence}");
+        
+        string items = this.Items.Count == 0 ? 
+            " None" : Environment.NewLine + string.Join(Environment.NewLine, this.Items.Select(i => i.ToString()));
+        result.AppendLine($"Items:{items}");
 
         return result.ToString().Trim();
     }

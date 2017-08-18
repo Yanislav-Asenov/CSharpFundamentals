@@ -1,4 +1,4 @@
-﻿public interface IWriter
+﻿public interface IInputReader
 {
     void Write();
 

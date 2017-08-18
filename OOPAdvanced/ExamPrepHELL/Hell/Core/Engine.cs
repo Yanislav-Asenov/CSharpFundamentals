@@ -4,12 +4,14 @@ using System.Linq;
 
 public class Engine : IRunnable
 {
-    private readonly IInputOutputManager inputOutputManager;
+    private readonly IOutputWriter reader;
+    private readonly IInputReader writer;
     private IManager heroManager;
 
-    public Engine(IInputOutputManager inputOutputManager, IManager heroManager)
+    public Engine(IOutputWriter reader, IInputReader writer, IManager heroManager)
     {
-        this.inputOutputManager = inputOutputManager;
+        this.reader = reader;
+        this.writer = writer;
         this.heroManager = heroManager;
     }
 
@@ -17,9 +19,9 @@ public class Engine : IRunnable
     {
         while (true)
         {
-            string inputLine = this.inputOutputManager.ReadLine();
+            string inputLine = this.reader.ReadLine();
             IList<string> arguments = this.ParseInput(inputLine);
-            this.inputOutputManager.AppendLine(this.ProcessInput(arguments));
+            this.writer.AppendLine(this.ProcessInput(arguments));
 
             if (inputLine == "Quit")
             {
@@ -27,12 +29,12 @@ public class Engine : IRunnable
             }
         }
 
-        this.inputOutputManager.Write();
+        this.writer.Write();
     }
 
     private IList<string> ParseInput(string input)
     {
-        return input.Split(' ').ToList();
+        return input.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).ToList();
     }
 
     private string ProcessInput(IList<string> arguments)

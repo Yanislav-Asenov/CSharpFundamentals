@@ -4,9 +4,9 @@ using System.Linq;
 public class HeroInventory : IInventory
 {
     [Item]
-    private Dictionary<string, IItem> commonItems;
+    private IDictionary<string, IItem> commonItems;
 
-    private Dictionary<string, IRecipe> recipeItems;
+    private IDictionary<string, IRecipe> recipeItems;
 
     public HeroInventory()
     {
@@ -87,6 +87,6 @@ public class HeroInventory : IInventory
             recipe.HitPointsBonus,
             recipe.DamageBonus);
 
-        this.commonItems.Add(newItem.Name, newItem);
+        this.AddCommonItem(newItem);
     }
 }

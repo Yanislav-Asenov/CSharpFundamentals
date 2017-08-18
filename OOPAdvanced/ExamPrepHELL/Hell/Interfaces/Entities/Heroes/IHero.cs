@@ -1,4 +1,6 @@
-﻿public interface IHero
+﻿using System.Collections.Generic;
+
+public interface IHero
 {
     string Name { get; }
 
@@ -11,6 +13,12 @@
     long HitPoints { get; }
 
     long Damage { get; }
+
+    long PrimaryStats { get; }
+
+    long SecondaryStats { get; }
+
+    ICollection<IItem> Items { get; }
 
     IInventory Inventory { get; }
 }

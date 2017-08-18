@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Text;
 
-public class ConsoleWriter : IWriter
+public class OutputWriter : IInputReader
 {
     private readonly StringBuilder content;
 
-    public ConsoleWriter()
+    public OutputWriter()
         : this(new StringBuilder())
     {
 
     }
 
-    public ConsoleWriter(StringBuilder content)
+    public OutputWriter(StringBuilder content)
     {
         this.content = content;
     }

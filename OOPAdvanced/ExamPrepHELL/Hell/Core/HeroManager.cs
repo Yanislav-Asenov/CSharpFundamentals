@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 
 public class HeroManager : IManager
 {
@@ -11,25 +12,22 @@ public class HeroManager : IManager
 
     public string AddHero(IList<string> arguments)
     {
-        string result = null;
-
         string heroName = arguments[0];
         string heroType = arguments[1];
 
         try
         {
             Type targetHeroType = Type.GetType(heroType);
-            ConstructorInfo constructor = targetHeroType.GetConstructors().FirstOrDefault();
-            IHero hero = constructor.Invoke(targetHeroType, new object[] { heroName }) as IHero;
+            IHero hero = Activator.CreateInstance(targetHeroType, new object[] { heroName }) as IHero;
+            this.Heroes.Add(hero.Name, hero);
 
-            result = string.Format($"Created {heroType} - {hero.GetType().Name}");
+            string result = string.Format(Constants.HeroCreateMessage, hero.GetType().Name, hero.Name);
+            return result;
         }
         catch (Exception e)
         {
             return e.Message;
         }
-
-        return result;
     }
 
     public string AddItemToHero(IList<string> arguments)
@@ -86,5 +84,30 @@ public class HeroManager : IManager
 
         result = string.Format(Constants.RecipeCreatedMessage, newRecipe.Name, heroName);
         return result;
+    }
+
+    public string Quit(IList<string> arguments)
+    {
+        int heroCounter = 1;
+        StringBuilder result = new StringBuilder();
+
+        var orderedHeroes = this.Heroes
+            .Values
+            .OrderByDescending(h => h.PrimaryStats)
+            .ThenByDescending(h => h.SecondaryStats);
+        foreach (var hero in orderedHeroes)
+        {
+            result.AppendLine($"{heroCounter++}. {hero.GetType().Name}: {hero.Name}");
+            result.AppendLine($"###HitPoints: {hero.HitPoints}");
+            result.AppendLine($"###Damage: {hero.Damage}");
+            result.AppendLine($"###Strength: {hero.Strength}");
+            result.AppendLine($"###Agility: {hero.Agility}");
+            result.AppendLine($"###Intelligence: {hero.Intelligence}");
+
+            string items = hero.Items.Count == 0 ? "None" : string.Join(", ", hero.Items.Select(i => i.Name));
+            result.AppendLine($"###Items: {items}");
+        }
+
+        return result.ToString().Trim();
     }
 }

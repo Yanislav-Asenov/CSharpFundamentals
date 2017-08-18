@@ -9,6 +9,7 @@ public class RecipeCommand : AbstractCommand
 
     public override string Execute()
     {
-        return string.Empty;
+        string result = this.Manager.AddRecipeToHero(this.Args);
+        return result;
     }
 }
