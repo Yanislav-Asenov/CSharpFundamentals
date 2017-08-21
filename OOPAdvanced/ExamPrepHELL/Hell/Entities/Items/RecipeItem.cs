@@ -11,7 +11,7 @@ public class RecipeItem : Item, IRecipe
         int intelligenceBonus, 
         int hitPointsBonus, 
         int damageBonus,
-        params string[] requiredItems) 
+        IList<string> requiredItems) 
         : base(name, strengthBonus, agilityBonus, intelligenceBonus, hitPointsBonus, damageBonus)
     {
         this.requiredItems = new List<string>(requiredItems);
