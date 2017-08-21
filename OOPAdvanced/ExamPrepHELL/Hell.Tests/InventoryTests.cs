@@ -137,7 +137,7 @@ public class InventoryTests
     }
 
     [Test]
-    public void AddCommonItemWhichIsRequiredForRecipeShouldCreateRecipeAndIncreaseTotalStatBonuses()
+    public void AddCommonItemWhichCompletesRecipeShouldCreateRecipeAndIncreaseTotalStatBonuses()
     {
         // Arrange
         IItem item1 = new CommonItem("Test Item 1", 0, 0, 0, 0, 0);

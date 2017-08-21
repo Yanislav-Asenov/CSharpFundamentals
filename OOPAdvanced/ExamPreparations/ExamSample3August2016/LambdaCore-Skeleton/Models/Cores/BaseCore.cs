@@ -4,13 +4,21 @@
 
     public abstract class BaseCore : ICore
     {
+        private string id;
         private string type;
         private int durability;
 
-        protected BaseCore(string type, int durability)
+        protected BaseCore(string id, string type, int durability)
         {
+            this.Id = id;
             this.Type = type;
             this.Durability = durability;
+        }
+
+        public string Id
+        {
+            get => this.id;
+            private set => this.id = value;
         }
 
         public string Type

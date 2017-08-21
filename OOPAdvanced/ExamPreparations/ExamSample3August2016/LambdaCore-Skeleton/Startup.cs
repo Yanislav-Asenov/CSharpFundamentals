@@ -2,8 +2,10 @@
 {
     using LambdaCore_Skeleton.Core;
     using LambdaCore_Skeleton.Core.IO;
+    using LambdaCore_Skeleton.Factories;
     using LambdaCore_Skeleton.Interfaces.Core;
     using LambdaCore_Skeleton.Interfaces.Core.IO;
+    using LambdaCore_Skeleton.Interfaces.Factories;
 
     public class Startup
     {
@@ -13,7 +15,13 @@
             IOutputWriter outputWriter = new ConsoleWriter();
             IInputOutputManager inputOutputManager = new IOManager(inputReader, outputWriter);
 
-            IRunnable engine = new Engine(inputOutputManager);
+            ICoreIdManager coreIdManager = new CoreIdManager();
+            ICoreFactory coreFactory = new CoreFactory();
+            IPlantController plantController = new PlantController(coreIdManager, coreFactory);
+            IInterpreter commandIntepreter = new CommandInterpreter(plantController);
+
+            IRunnable engine = new Engine(inputOutputManager, commandIntepreter);
+            engine.Run();
         }
     }
 }

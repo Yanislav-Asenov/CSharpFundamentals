@@ -4,8 +4,8 @@
     {
         private const int ParaCoreDurabilityDivider = 3;
 
-        public ParaCore(string type, int durability) 
-            : base(type, durability)
+        public ParaCore(string id, string type, int durability) 
+            : base(id, type, durability)
         {
         }
 

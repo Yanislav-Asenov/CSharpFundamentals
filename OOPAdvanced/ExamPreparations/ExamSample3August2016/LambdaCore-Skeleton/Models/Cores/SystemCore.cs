@@ -2,8 +2,8 @@
 {
     public class SystemCore : BaseCore
     {
-        public SystemCore(string type, int durability) 
-            : base(type, durability)
+        public SystemCore(string id, string type, int durability) 
+            : base(id, type, durability)
         {
         }
     }

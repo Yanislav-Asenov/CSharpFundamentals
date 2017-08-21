@@ -5,16 +5,27 @@
 
     public class Engine : IRunnable
     {
-        private readonly IInputOutputManager inputOutputManager;
+        private const string TerminateProgramCommand = "System Shutdown!";
 
-        public Engine(IInputOutputManager inputOutputManager)
+        private readonly IInputOutputManager inputOutputManager;
+        private readonly IInterpreter commandInterpreter;
+
+        public Engine(IInputOutputManager inputOutputManager, IInterpreter commandInterpreter)
         {
             this.inputOutputManager = inputOutputManager;
+            this.commandInterpreter = commandInterpreter;
         }
 
         public void Run()
         {
-            throw new System.NotImplementedException();
+            string inputLine = this.inputOutputManager.ReadLine();
+            while (inputLine != TerminateProgramCommand)
+            {
+                string commandResult = this.commandInterpreter.InterpretCommand(inputLine);
+                this.inputOutputManager.WriteLine(commandResult);
+
+                inputLine = this.inputOutputManager.ReadLine();
+            }
         }
     }
 }

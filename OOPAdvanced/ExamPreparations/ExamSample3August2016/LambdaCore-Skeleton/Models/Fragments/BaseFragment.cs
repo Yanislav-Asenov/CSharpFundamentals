@@ -6,9 +6,6 @@
     public abstract class BaseFragment : IFragment
     {
         private string name;
-
-        private FragmentType type;
-
         private int pressureAffection;
 
         protected BaseFragment(string name, int pressureAffection)
