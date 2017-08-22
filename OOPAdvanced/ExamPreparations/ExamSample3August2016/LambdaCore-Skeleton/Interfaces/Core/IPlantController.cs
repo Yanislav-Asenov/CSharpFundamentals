@@ -12,5 +12,15 @@
         ICore CreateCore(string type, int durability);
 
         void RemoveCore(string id);
+
+        void SelectCore(string id);
+
+        IFragment CreateFragment(string type, string name, int pressureAffection);
+
+        void AttachFragment(IFragment fragment);
+
+        IFragment DetachFragment();
+
+        string GetStatus();
     }
 }

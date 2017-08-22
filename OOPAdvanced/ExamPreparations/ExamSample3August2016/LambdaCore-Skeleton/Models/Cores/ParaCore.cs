@@ -12,7 +12,6 @@
         public override int Durability
         {
             get => base.Durability / ParaCoreDurabilityDivider;
-            set => base.Durability = value;
         }
     }
 }

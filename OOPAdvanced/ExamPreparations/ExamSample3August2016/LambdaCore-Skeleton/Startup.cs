@@ -17,7 +17,8 @@
 
             ICoreIdManager coreIdManager = new CoreIdManager();
             ICoreFactory coreFactory = new CoreFactory();
-            IPlantController plantController = new PlantController(coreIdManager, coreFactory);
+            IFragmentFactory fragmentFactory = new FragmentFactory();
+            IPlantController plantController = new PlantController(coreIdManager, coreFactory, fragmentFactory);
             IInterpreter commandIntepreter = new CommandInterpreter(plantController);
 
             IRunnable engine = new Engine(inputOutputManager, commandIntepreter);

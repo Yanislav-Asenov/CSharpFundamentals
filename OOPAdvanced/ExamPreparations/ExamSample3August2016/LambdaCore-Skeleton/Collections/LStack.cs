@@ -1,17 +1,17 @@
 ﻿namespace LambdaCore_Skeleton.Collections
 {
+    using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
     using LambdaCore_Skeleton.Interfaces.Collections;
-    using LambdaCore_Skeleton.Interfaces.Models;
 
-    public class LStack : ILStack
+    public class LStack<T> : ILStack<T> where T : class
     {
-        private LinkedList<ICore> innerList;
+        private LinkedList<T> innerList;
 
         public LStack()
         {
-            this.innerList = new LinkedList<ICore>();
+            this.innerList = new LinkedList<T>();
         }
 
         public int Count()
@@ -19,7 +19,7 @@
             return this.innerList.Count;
         }
 
-        public ICore Push(ICore item)
+        public T Push(T item)
         {
             this.innerList.AddLast(item);
             return item;
@@ -30,15 +30,25 @@
             this.innerList.RemoveLast();
         }
 
-        public ICore Peek()
+        public T Peek()
         {
-            ICore peekedItem = this.innerList.First();
+            T peekedItem = this.innerList.First();
             return peekedItem;
         }
 
         public bool IsEmpty()
         {
-            return this.innerList.Count > 0;
+            return this.innerList.Count == 0;
+        }
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            return this.innerList.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return this.GetEnumerator();
         }
     }
 }

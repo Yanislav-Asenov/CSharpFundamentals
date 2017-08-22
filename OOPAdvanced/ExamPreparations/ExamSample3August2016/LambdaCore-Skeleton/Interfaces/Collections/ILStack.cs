@@ -1,16 +1,16 @@
 ﻿namespace LambdaCore_Skeleton.Interfaces.Collections
 {
-    using LambdaCore_Skeleton.Interfaces.Models;
+    using System.Collections.Generic;
 
-    public interface ILStack
+    public interface ILStack<T> : IEnumerable<T> where T : class
     {
         int Count();
 
-        ICore Push(ICore item);
+        T Push(T item);
 
         void Pop();
 
-        ICore Peek();
+        T Peek();
 
         bool IsEmpty();
     }
