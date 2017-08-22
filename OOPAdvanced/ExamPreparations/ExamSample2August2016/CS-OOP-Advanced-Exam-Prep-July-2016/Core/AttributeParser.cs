@@ -46,66 +46,88 @@
 
         public void Parse()
         {
-            Type[] types = Assembly.GetExecutingAssembly().GetTypes();
-            foreach (Type type in types)
-            {                            
-                if (type.GetCustomAttributes().Any(x => x.GetType() == typeof(ControllerAttribute)))
+            Type[] allTypesInCurrentExecutingAssembly = Assembly.GetExecutingAssembly().GetTypes();
+            Type[] controllerTypes =
+                allTypesInCurrentExecutingAssembly
+                    .Where(t => t.GetCustomAttributes<ControllerAttribute>().Any())
+                    .ToArray();
+
+            foreach (Type controllerType in controllerTypes)
+            {
+                var currentTypeMethods = controllerType.GetMethods(BindingFlags.Instance | BindingFlags.Public);
+
+                foreach (var currentMethod in currentTypeMethods)
                 {
-                    foreach (var currentMethod in type.GetMethods(BindingFlags.Instance | BindingFlags.Public))
+                    var isCurrentMethodForRequestMapping = currentMethod
+                        .GetCustomAttributes()
+                        .Any(x => x.GetType() == typeof(RequestMappingAttribute));
+
+                    if (isCurrentMethodForRequestMapping)
                     {
-                        if (currentMethod.GetCustomAttributes().Any(x => x.GetType() == typeof(RequestMappingAttribute)))
+                        RequestMappingAttribute methodRequestMappingAttribute =
+                            currentMethod.GetCustomAttribute<RequestMappingAttribute>();
+
+                        RequestMethod requestMethod = methodRequestMappingAttribute.Method;
+                        string mapping = methodRequestMappingAttribute.Value;
+                        List<string> mappingTokens = mapping.Split(new[] { '/' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+
+                        Dictionary<int, Type> argumentsMapping = new Dictionary<int, Type>();
+
+                        for (int i = 0; i < mappingTokens.Count; i++)
                         {
-                            RequestMappingAttribute requestMapping = currentMethod.GetCustomAttribute<RequestMappingAttribute>();
-                            RequestMethod requestMethod = requestMapping.Method;
-                            string mapping = requestMapping.Value;
-                            List<string> mappingTokens = mapping.Split('/').ToList();
-
-                            Dictionary<int, Type> argumentsMapping = new Dictionary<int, Type>();
-
-                            for (int i = 0; i < mappingTokens.Count; i++)
+                            var isTokenRequestParameter = mappingTokens[i].StartsWith("{") && mappingTokens[i].EndsWith("}");
+                            if (isTokenRequestParameter)
                             {
-                                if (mappingTokens[i].StartsWith("{") && mappingTokens[i].EndsWith("}"))
+                                foreach (ParameterInfo parameterInfo in currentMethod.GetParameters())
                                 {
-                                    foreach (ParameterInfo parameterInfo in currentMethod.GetParameters())
+                                    int numberOfUriParameterAttributes = parameterInfo
+                                        .GetCustomAttributes()
+                                        .Count(x => x.GetType() == typeof(UriParameterAttribute));
+                                    if (numberOfUriParameterAttributes == 0)
                                     {
-                                        if (parameterInfo.GetCustomAttributes().All(x => x.GetType() != typeof(UriParameterAttribute)))
-                                        {
-                                            continue;
-                                        }
+                                        continue;
+                                    }
 
-                                        UriParameterAttribute uriParameter =
-                                            parameterInfo.GetCustomAttribute<UriParameterAttribute>();
-                                        if (mappingTokens[i].Equals("{" + uriParameter.Value + "}"))
-                                        {
-                                            argumentsMapping.Add(i, parameterInfo.ParameterType);
+                                    UriParameterAttribute uriParameter =
+                                        parameterInfo.GetCustomAttribute<UriParameterAttribute>();
 
+                                    bool isTargetMappingToken = mappingTokens[i].Equals("{" + uriParameter.Value + "}");
+                                    if (isTargetMappingToken)
+                                    {
+                                        argumentsMapping.Add(i, parameterInfo.ParameterType);
 
-                                            mapping = mapping.Replace(mappingTokens[i].ToString(), parameterInfo.GetType() == typeof(string) ? "\\w+" : "\\d+");
-                                            break;
-                                        }
+                                        string updatedMapping = mapping
+                                            .Replace(mappingTokens[i].ToString(), parameterInfo.ParameterType == typeof(string) ? "\\w+" : "\\d+");
+                                        mapping = updatedMapping;
+                                        break;
                                     }
                                 }
                             }
-
-                            Object controllerInstance = Activator.CreateInstance(type);
-
-                            ControllerActionPair controllerActionPair = new ControllerActionPair(controllerInstance, currentMethod, argumentsMapping);
-
-                            if (!this.Controllers.ContainsKey(requestMethod))
-                            {
-                                this.Controllers.Add(requestMethod, new Dictionary<string, ControllerActionPair>());
-                            }
-
-                            this.Controllers[requestMethod].Add(mapping, controllerActionPair);
                         }
+
+                        Object controllerInstance = Activator.CreateInstance(controllerType);
+
+                        ControllerActionPair controllerActionPair = new ControllerActionPair(controllerInstance, currentMethod, argumentsMapping);
+
+                        if (!this.Controllers.ContainsKey(requestMethod))
+                        {
+                            this.Controllers.Add(requestMethod, new Dictionary<string, ControllerActionPair>());
+                        }
+
+                        this.Controllers[requestMethod].Add(mapping, controllerActionPair);
                     }
                 }
-                else if (type.GetCustomAttributes().Any(x => x.GetType() == typeof(ComponentAttribute)))
+            }
+
+            Type[] componentTypes =
+                allTypesInCurrentExecutingAssembly
+                    .Where(t => t.GetCustomAttributes<ComponentAttribute>().Any())
+                    .ToArray();
+            foreach (var componentType in componentTypes)
+            {
+                foreach (Type parent in componentType.GetInterfaces())
                 {
-                    foreach (Type parent in type.GetInterfaces())
-                    {
-                        this.Components.Add(parent, type);
-                    }
+                    this.Components.Add(parent, componentType);
                 }
             }
 

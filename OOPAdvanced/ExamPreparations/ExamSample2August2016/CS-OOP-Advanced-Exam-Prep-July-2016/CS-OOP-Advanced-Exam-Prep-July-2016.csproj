@@ -47,6 +47,7 @@
     <Compile Include="Core\ControllerActionPair.cs" />
     <Compile Include="Attributes\UriParameterAttribute.cs" />
     <Compile Include="Attributes\RequestMappingAttribute.cs" />
+    <Compile Include="Core\Controllers\ProductsController.cs" />
     <Compile Include="Core\Engine.cs" />
     <Compile Include="Core\IO\ConsoleReader.cs" />
     <Compile Include="Core\IO\ConsoleWriter.cs" />
