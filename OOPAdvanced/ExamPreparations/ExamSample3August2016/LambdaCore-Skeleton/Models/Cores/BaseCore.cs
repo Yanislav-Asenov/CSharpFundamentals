@@ -38,12 +38,8 @@
         {
             get
             {
-                // THE CORE'S DURABILITY - THE CURRENT PRESSURE ON THE CORE
-                // IF THE PRESSURE IS BELOW ZERO OR ZERO THE CORE'S DURABILITY WILL REMAIN AT MAXIMUM
-                // BECAUSE THE .getCurrentPressure() METHOD WILL NOT RETURN A VALUE BELOW ZERO
                 int result = (int)(this.durability - this.CurrentPressure);
 
-                // THE DURABILITY SHOULD NOT FALL BELOW ZERO
                 return result > 0 ? result : 0;
             }
 
