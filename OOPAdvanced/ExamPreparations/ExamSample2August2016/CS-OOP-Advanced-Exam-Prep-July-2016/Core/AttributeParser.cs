@@ -13,22 +13,22 @@
         /// Association of Request Method => URI => Controller.Action()
         /// e.g. "GET" => "/users/6" => {"UsersController", "Get(id)"}
         /// </summary>
-        private Dictionary<RequestMethod, Dictionary<string, ControllerActionPair>> controllers;
+        private IDictionary<RequestMethod, IDictionary<string, ControllerActionPair>> controllers;
 
         /**
         * A component is any bean that can be injected by any resolver
         * The association kept here is:
         *     "Abstraction" => "Implementation"
         */
-        private Dictionary<Type, Type> components;
+        private IDictionary<Type, Type> components;
 
         public AttributeParser()
         {
-            this.controllers = new Dictionary<RequestMethod, Dictionary<string, ControllerActionPair>>();
+            this.controllers = new Dictionary<RequestMethod, IDictionary<string, ControllerActionPair>>();
             this.components = new Dictionary<Type, Type>();
         }
 
-        public Dictionary<RequestMethod, Dictionary<string, ControllerActionPair>> Controllers
+        public IDictionary<RequestMethod, IDictionary<string, ControllerActionPair>> Controllers
         {
             get
             {
@@ -36,7 +36,7 @@
             }
         }
 
-        public Dictionary<Type, Type> Components
+        public IDictionary<Type, Type> Components
         {
             get
             {
@@ -137,28 +137,28 @@
             }
         }
 
-        public T Resolve<T>()
-        {
-            if (!this.components.ContainsKey(typeof(T)))
-            {
-                throw new InvalidOperationException("Cannot map dependency of type "
-                    + typeof(T).Name
-                    + ". It is not annotated with @Component ");
-            }
+        //public T Resolve<T>()
+        //{
+        //    if (!this.components.ContainsKey(typeof(T)))
+        //    {
+        //        throw new InvalidOperationException("Cannot map dependency of type "
+        //            + typeof(T).Name
+        //            + ". It is not annotated with @Component ");
+        //    }
 
-            T result = Activator.CreateInstance<T>();
+        //    T result = Activator.CreateInstance<T>();
 
-            this.ResolveDependencies(result);
+        //    this.ResolveDependencies(result);
 
-            return result;
-        }
+        //    return result;
+        //}
 
         private void ResolveDependencies(object controller)
         {
             FieldInfo[] currentDependencies =
                 controller.GetType()
                     .GetFields(BindingFlags.Instance | BindingFlags.NonPublic)
-                    .Where(x => x.GetCustomAttributes().Any(attr => attr.GetType() == typeof(InjectAttribute)))
+                    .Where(x => x.GetCustomAttributes< InjectAttribute>().Any())
                     .ToArray();
 
             foreach (FieldInfo currentDependency in currentDependencies)
