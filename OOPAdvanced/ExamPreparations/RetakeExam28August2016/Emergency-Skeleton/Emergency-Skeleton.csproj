@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{36F736F3-8878-4A11-8E8F-DA00D641AECA}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Emergency_Skeleton</RootNamespace>
+    <AssemblyName>Emergency-Skeleton</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Core\Engine.cs" />
+    <Compile Include="Core\IO\ConsoleReader.cs" />
+    <Compile Include="Core\IO\ConsoleWriter.cs" />
+    <Compile Include="Core\IO\IOManager.cs" />
+    <Compile Include="Interfaces\Collections\IEmergencyRegister.cs" />
+    <Compile Include="Interfaces\Core\IEngine.cs" />
+    <Compile Include="Interfaces\Core\IManagementSystem.cs" />
+    <Compile Include="Interfaces\Core\IO\IInputOutputManager.cs" />
+    <Compile Include="Interfaces\Core\IO\IInputReader.cs" />
+    <Compile Include="Interfaces\Core\IO\IOutputWriter.cs" />
+    <Compile Include="Interfaces\Models\Emergencies\IEmergency.cs" />
+    <Compile Include="Interfaces\Models\IEmergencyCenter.cs" />
+    <Compile Include="Interfaces\Models\Emergencies\IHealthEmergency.cs" />
+    <Compile Include="Interfaces\Models\Emergencies\IOrderEmergency.cs" />
+    <Compile Include="Interfaces\Models\Emergencies\IPropertyEmergency.cs" />
+    <Compile Include="Interfaces\Utils\IRegistrationTime.cs" />
+    <Compile Include="Models\Emergencies\BaseEmergency.cs" />
+    <Compile Include="Models\Emergencies\HealthEmergency.cs" />
+    <Compile Include="Models\Emergencies\OrderEmergency.cs" />
+    <Compile Include="Models\Emergencies\PropertyEmergency.cs" />
+    <Compile Include="Models\EmergencyCenters\BaseEmergencyCenter.cs" />
+    <Compile Include="Models\Emergencies\EmergencyLevel.cs" />
+    <Compile Include="Core\EmergencyManagementSystem.cs" />
+    <Compile Include="Collections\EmergencyRegister.cs" />
+    <Compile Include="Models\EmergencyCenters\MedicalServiceCenter.cs" />
+    <Compile Include="Models\EmergencyCenters\PoliceServiceCenter.cs" />
+    <Compile Include="Models\EmergencyCenters\ServiceCenter.cs" />
+    <Compile Include="Startup.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\RegistrationTime.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
