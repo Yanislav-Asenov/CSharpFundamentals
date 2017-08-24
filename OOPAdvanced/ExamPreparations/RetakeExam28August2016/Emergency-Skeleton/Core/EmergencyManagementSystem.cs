@@ -1,12 +1,15 @@
 ﻿namespace Emergency_Skeleton.Core
 {
+    using Emergency_Skeleton.Interfaces.Collections;
     using Emergency_Skeleton.Interfaces.Core;
 
     public class EmergencyManagementSystem : IManagementSystem
     {
-        public EmergencyManagementSystem()
-        {
+        private readonly IEmergencyRegister emergencyRegister;
 
+        public EmergencyManagementSystem(IEmergencyRegister emergencyRegister)
+        {
+            this.emergencyRegister = emergencyRegister;
         }
 
         public string RegisterPropertyEmergency()
